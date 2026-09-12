@@ -101,7 +101,7 @@ export default function Projects() {
             / work
           </p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-            Selected projects
+            Projects
           </h2>
           <p className="mt-3 max-w-xl text-zinc-400">
             End-to-end AI products — shipped and running in production.
