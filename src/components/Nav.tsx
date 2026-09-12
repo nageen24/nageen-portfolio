@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { profile } from "@/data/portfolio";
 
 const links = [
   { href: "#work", label: "Work" },
   { href: "#stack", label: "Stack" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
 ];
 
 export default function Nav() {
@@ -33,7 +32,7 @@ export default function Nav() {
           ))}
           <li>
             <a
-              href="#contact"
+              href={`mailto:${profile.email}`}
               className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-sm font-medium text-emerald-300 transition-colors hover:bg-emerald-400/20"
             >
               Hire me
@@ -85,7 +84,7 @@ export default function Nav() {
             ))}
             <li>
               <a
-                href="#contact"
+                href={`mailto:${profile.email}`}
                 onClick={() => setOpen(false)}
                 className="mt-2 mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300"
               >
