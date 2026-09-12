@@ -11,7 +11,7 @@ function WhatsAppIcon() {
 
 export default function Footer() {
   return (
-    <footer id="contact" className="border-t border-white/5 bg-ink">
+    <footer id="contact" className="border-t border-white/5 bg-ink-soft">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <p className="font-mono text-xs uppercase tracking-widest text-accent">
           / contact

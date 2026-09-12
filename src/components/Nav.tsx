@@ -31,18 +31,6 @@ export default function Nav() {
             </li>
           ))}
           <li>
-            <a
-              href="/resume.pdf"
-              download
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-zinc-200 transition-colors hover:border-white/25 hover:bg-white/5"
-            >
-              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Resume
-            </a>
-          </li>
-          <li>
             <Link
               href="/#contact"
               className="rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent transition-colors hover:bg-accent/20"
@@ -94,19 +82,6 @@ export default function Nav() {
                 </Link>
               </li>
             ))}
-            <li>
-              <a
-                href="/resume.pdf"
-                download
-                onClick={() => setOpen(false)}
-                className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200"
-              >
-                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                Resume
-              </a>
-            </li>
             <li>
               <Link
                 href="/#contact"
