@@ -680,7 +680,7 @@ export const projects: Project[] = [
       {
         title: "1. Multi-source discovery",
         detail:
-          "Apify actors scrape Google Maps, Instagram, and local directories across Atlanta, New York, Bangkok, and Tel Aviv on their own independent 15-day schedule. Search terms and neighborhood/area lists are curated per city so a query set doesn't quietly default everything to Atlanta.",
+          "Apify actors scrape StyleSeat + Booksy, TikTok, and Instagram hashtags across Atlanta, New York, Bangkok, and Tel Aviv on their own independent 15-day schedule. Search terms and neighborhood/area lists are curated per city so a query set doesn't quietly default everything to Atlanta.",
       },
       {
         title: "2. Cross-source dedup",
@@ -720,7 +720,7 @@ export const projects: Project[] = [
       },
       {
         label: "Discovery",
-        detail: "Apify actors scraping Google Maps, Instagram, and directories across 4 cities on their own independent 15-day schedule.",
+        detail: "Apify actors scraping StyleSeat/Booksy, TikTok, and Instagram hashtags across 4 cities on their own independent 15-day schedule.",
       },
       {
         label: "Dedup & merge",
@@ -758,6 +758,16 @@ export const projects: Project[] = [
       "Tailwind CSS",
     ],
     accent: "from-rose-500/20 to-purple-500/10",
+    images: [
+      {
+        src: "/projects/victor/01-apify-scraper-tasks.png",
+        caption: "Apify — per-city, per-platform scraper tasks (StyleSeat/Booksy, TikTok, Instagram hashtag) all green",
+      },
+      {
+        src: "/projects/victor/02-mongodb-practitioner-record.png",
+        caption: "MongoDB — a merged practitioner record: sources, raw evidence, and dedup keys, in a 834-document collection",
+      },
+    ],
   },
 ];
 
