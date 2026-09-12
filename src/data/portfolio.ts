@@ -253,7 +253,7 @@ export const projects: Project[] = [
   {
     slug: "trello-meeting-automation",
     title: "Meeting & Task Automation Suite",
-    category: "n8n Automation · Also Built for Asana & Monday.com",
+    category: "n8n Automation · Built for Trello, Asana & Monday.com",
     status: "Self-hosted · n8n",
     blurb:
       "Five n8n + Claude workflows that turn meeting transcripts, inbound email, and Slack chat into structured project-board tasks — built for Trello, and just as portable to Asana or Monday.com.",
