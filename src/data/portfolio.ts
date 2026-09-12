@@ -360,7 +360,7 @@ export const projects: Project[] = [
     slug: "rag-chatbot",
     title: "RAG Support Widget — Grounded Q&A",
     category: "Embeddable AI Widget · RAG Backend · FastAPI",
-    status: "Live on Vercel",
+    status: "In Production",
     blurb:
       "An embeddable support-chat widget that answers strictly from a company's own documents — FastAPI, BM25 retrieval, and Groq's GPT-OSS 20B behind a strict, word-capped brand-voice persona.",
     myRole:
