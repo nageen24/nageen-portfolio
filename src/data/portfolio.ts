@@ -449,37 +449,36 @@ export const projects: Project[] = [
       {
         title: "1. Detecting a meeting",
         detail: [
-          "A process-list watcher polls for known meeting apps (Zoom, Teams, Meet via Chrome, Slack, Discord) every ~4s; on Windows, a second watcher polls the CapabilityAccessManager registry key the OS itself uses to light up the mic-privacy indicator.",
-          "Both signals debounce across 2 consecutive polls before firing, so a process restart doesn't cause a false start/stop flap.",
-          "A floating banner window pops up to confirm or auto-start the recording.",
+          "Polls for known meeting apps, plus — on Windows — the OS's own mic-privacy registry key.",
+          "Debounced over 2 polls, then a floating banner confirms or auto-starts the recording.",
         ],
       },
       {
         title: "2. Local audio capture",
-        detail:
-          "The renderer's MediaRecorder captures mic and system-loopback audio simultaneously, mixes them, and streams ~1-second chunks to the main process, which appends them to disk as WebM/Opus through a serialized file writer — memory stays bounded no matter how long the meeting runs.",
+        detail: [
+          "MediaRecorder mixes mic + system-loopback audio into ~1-second chunks.",
+          "Chunks stream to disk as WebM/Opus through a serialized writer — memory stays bounded.",
+        ],
       },
       {
         title: "3. Transcription",
         detail: [
-          "Groq Whisper (whisper-large-v3-turbo) transcribes the finished recording via Groq's OpenAI-compatible /audio/transcriptions endpoint — a 1-hour meeting comes back in ~25 seconds.",
-          "With no Groq key configured, a fully offline WASM Whisper (@huggingface/transformers, model cached in IndexedDB) transcribes on-device instead, using a silence-gap heuristic (>1.2s) to estimate speaker turns.",
+          "Groq Whisper (whisper-large-v3-turbo) returns a 1-hour transcript in ~25s.",
+          "No API key? A fully offline WASM Whisper fallback transcribes on-device instead.",
         ],
       },
       {
         title: "4. AI summary + auto-filing",
         detail: [
-          "A forced-JSON prompt to Groq's llama-3.3-70b-versatile turns the transcript into a structured summary — key points, action items with resolved owners, decisions, and open questions — reading between speaker handoffs to assign credit correctly.",
-          "A second classifier call reads that summary against the user's existing projects and either files the meeting into one or creates a new project — no manual folder-sorting.",
-          "Everything lands in a local, versioned SQLite schema (better-sqlite3) — no server, no account required.",
+          "Groq's llama-3.3-70b-versatile drafts a structured summary — owners, decisions, open questions.",
+          "A second call auto-files the meeting into an existing or new project.",
         ],
       },
       {
         title: "5. Notes, sync, and webhook out",
         detail: [
-          "A TipTap rich-text editor lets the user refine the summary and notes per meeting.",
-          "Optional Google Drive sync uses a Desktop OAuth loopback flow — each user's data lands only in their own hidden appDataFolder, so the app has no central store of anyone's meetings.",
-          "A webhook sender POSTs the finished summary as HMAC-SHA256-signed JSON, with exponential-backoff retries, to any URL — e.g. an n8n workflow that creates the matching Trello or Asana cards.",
+          "A TipTap editor lets you refine notes; Drive sync stays in each user's own private folder.",
+          "A signed webhook POSTs the finished summary to any URL — e.g. an n8n automation.",
         ],
       },
     ],
@@ -562,7 +561,7 @@ export const projects: Project[] = [
     category: "Agentic AI · Micro-RAG Search · FastAPI",
     status: "Live Demo · Deployed on Vercel",
     blurb:
-      "An agentic AI pipeline built around two independent LLM pairs — one drafts, one reviews — so no model ever certifies its own work, whether it's answering a search query or running an open-ended research agent. It discovers, enriches, and validates family-office records from public filings behind a verbatim-quote proof gate — an LLM proposes the evidence, code verifies it's actually on the page — then serves the results through a Micro-RAG search app. An idempotent, restart-safe scheduler keyed to each firm means a crashed or rerun batch never reprocesses the same firm twice, with every run replayable from committed state.",
+      "An agentic AI pipeline — a drafter-and-reviewer LLM pair checking every answer — that discovers, enriches, and proof-gates family-office records from public filings, then serves them through an idempotent, replayable Micro-RAG search app.",
     myRole:
       "Built solo end-to-end: the multi-source discovery + enrichment pipeline, the proof/validation gates and escalation queue, the idempotent GitHub Actions scheduler with committed replay state, and the Micro-RAG (hybrid retrieval + two-LLM grounding control) deployed as a FastAPI/Vercel search app.",
     highlights: [],
