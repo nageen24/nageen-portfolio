@@ -42,5 +42,8 @@ next-env.d.ts
 
 # raw screenshot dumps — only the curated/renamed gallery files (01-, 02-, ...)
 # in public/projects/*/ are meant to be committed
-public/projects/nestly/Screenshot *
-public/projects/nestly/WhatsApp *
+public/projects/*/Screenshot *
+public/projects/*/WhatsApp *
+
+# local IDE workspace file (references sibling repos on this machine)
+*.code-workspace

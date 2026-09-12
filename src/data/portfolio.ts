@@ -94,6 +94,7 @@ export type Project = {
   workflow?: { title: string; detail: string }[]; // optional "how it works" phases, detail page only
   tech: string[];
   demoUrl?: string; // real live demo link, shown as "View Demo" on card + detail page
+  codeUrl?: string; // real public repo link, shown as "View Code" on card + detail page
   accent: string; // tailwind gradient classes for the mock panel
   image?: string; // optional single screenshot, public/projects/<slug>/<file>
   images?: { src: string; caption: string }[]; // optional gallery, overrides `image`
@@ -250,18 +251,59 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "meeting-to-action",
-    title: "Meeting-to-Action AI Engine",
-    category: "Multi-Agent Workflow",
-    status: "Self-hosted",
+    slug: "trello-meeting-automation",
+    title: "Meeting & Task Automation Suite",
+    category: "n8n Automation · Also Built for Asana & Monday.com",
+    status: "Self-hosted · n8n",
     blurb:
-      "Converts live meeting transcripts into actions across 6 parallel pipelines — summaries, email drafts, Trello tasks, Slack alerts, and a personal Slack Q&A agent.",
+      "Five n8n + Claude workflows that turn meeting transcripts, inbound email, and Slack chat into structured project-board tasks — built for Trello, and just as portable to Asana or Monday.com.",
+    myRole:
+      "Designed and built all 5 workflows end-to-end — the Claude agent prompts and structured-output schemas, the n8n orchestration logic, and the direct Trello/Gmail/Drive REST tool layer each agent calls.",
     highlights: [
-      "Claude LLM with multi-agent tool-calling and structured output parsers",
-      "Conversation memory over REST APIs",
-      "Self-hosted on a live server via Docker",
+      "Read.ai transcript → Claude summary → full Trello board (lists, cards, comments), zero manual entry",
+      "Gmail inbox watched end-to-end: AI classifies, matches the project, and drafts context-aware replies",
+      "Slack-native Claude agent with 12 direct Trello REST tools — full board/list/card CRUD by chat",
     ],
-    tech: ["Claude", "n8n", "Docker", "Slack", "Trello", "REST APIs"],
+    workflow: [
+      {
+        title: "1. Meeting → Trello board",
+        detail:
+          "A Read.ai webhook delivers the raw meeting transcript. Claude summarizes it into a validated JSON structure, then the workflow creates a full Trello board — a Topic list plus Overview, Action Items, Decisions, Blockers, and Follow-ups cards — and uploads a formatted meeting-minutes doc to Google Drive. Two Claude agents (a Board Matcher and a Smart Card Creator) decide whether to reuse an existing board and handle the list/card creation with their own Trello API tools.",
+      },
+      {
+        title: "2. Meeting → Trello + drafted emails",
+        detail:
+          "The superset pipeline: everything above, plus an intent-detection step that flags which follow-ups need an email. A Claude drafting agent pulls supporting context from Google Drive and the matched Trello board, writes the reply, and saves it straight into Gmail as a draft — then pings Slack that drafts are ready for review.",
+      },
+      {
+        title: "3. Inbound email → AI-drafted reply",
+        detail:
+          "A Gmail trigger watches the inbox. Claude first classifies whether an email is worth replying to, then a Project Resolver agent matches it to the right Trello board using its own set of Trello + Drive tools (boards, lists, cards, comments, checklists, members, doc search). A second agent drafts a context-aware reply into Gmail, and Slack is notified either way — draft ready, or no project match found.",
+      },
+      {
+        title: "4. Pending-tasks Slack bot",
+        detail:
+          "Three triggers feed one pipeline: a new Google Drive file, a 10 AM daily schedule, or a direct Slack request. A router agent with conversational memory decides whether to run the full pipeline or just send a quick reply. Drive documents are converted, deduplicated, and categorized by one Claude agent; a second agent matches them to the right Trello board; a third composes the final pending-tasks summary and posts it to Slack.",
+      },
+      {
+        title: "5. Conversational Slack ⇄ Trello agent",
+        detail:
+          "A Slack-native Claude agent with 12 direct Trello REST tools — create/delete boards, create/rename/archive lists, create/update/move/delete cards. It resolves plain-English names to Trello IDs itself (never asks the user for an ID), replies in-thread in a natural, human tone, and ignores its own bot messages to avoid reply loops.",
+      },
+    ],
+    tech: [
+      "n8n",
+      "Claude (Anthropic)",
+      "LangChain Agents",
+      "Trello REST API",
+      "Slack API",
+      "Gmail API",
+      "Google Drive API",
+      "Read.ai Webhooks",
+      "Asana API",
+      "Monday.com API",
+    ],
+    codeUrl: "https://github.com/nageen24/trello-meeting-trello-automation-n8n",
     accent: "from-violet-500/20 to-indigo-500/10",
   },
   {
