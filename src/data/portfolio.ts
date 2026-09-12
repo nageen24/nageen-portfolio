@@ -437,18 +437,14 @@ export const projects: Project[] = [
   },
   {
     slug: "meeting-notetaker",
-    title: "Meeting Transcriber — Granola-Style Desktop App",
+    title: "Meeting Transcriber — Auto-Record & Summarize",
     category: "Desktop Automation · Electron · Local-First AI",
     status: "Windows · macOS · Linux",
     blurb:
-      "A Granola-style desktop app that auto-detects when a meeting starts, records it locally, and turns the audio into a transcript and structured AI summary — then auto-files it into a project and pushes the notes out by webhook.",
+      "A cross-platform desktop app that auto-detects a meeting and records it locally with zero manual action — on Windows, via the same mic-privacy signal Windows itself uses. Groq Whisper transcribes a 1-hour meeting in ~25s (with a fully offline fallback), and an LLM summarizes it and auto-files it into the right project. Finished notes push out to your automation stack by signed webhook.",
     myRole:
       "Built solo end-to-end: every isolated module (meeting detection, audio capture/storage, Groq transcription + WASM fallback, AI summary, project classifier, SQLite, Google Drive sync, webhook sender), plus the full Electron main/preload/renderer app, IPC bridge, and React UI.",
-    highlights: [
-      "Zero-action meeting detection — polls running processes and, on Windows, the same mic-privacy registry key Windows itself uses for its tray icon",
-      "Groq Whisper transcribes a 1-hour meeting in ~25s; a fully offline on-device WASM fallback keeps it working with no API key at all",
-      "An LLM auto-clusters every new meeting into the right project from its own summary, then pushes finished notes out by signed webhook",
-    ],
+    highlights: [],
     workflow: [
       {
         title: "1. Detecting a meeting",
@@ -563,17 +559,13 @@ export const projects: Project[] = [
   {
     slug: "family-office-intelligence",
     title: "Family Office Intelligence — AI Data Pipeline + Micro-RAG",
-    category: "AI Data Pipeline · Micro-RAG Search · FastAPI",
+    category: "Agentic AI · Micro-RAG Search · FastAPI",
     status: "Live Demo · Deployed on Vercel",
     blurb:
-      "An AI pipeline that discovers, enriches, and validates family-office records from public filings, then serves them through a Micro-RAG search app — every firm gated behind a verbatim-quote proof check, every answer checked by a second LLM before a user sees it.",
+      "An agentic AI pipeline built around two independent LLM pairs — one drafts, one reviews — so no model ever certifies its own work, whether it's answering a search query or running an open-ended research agent. It discovers, enriches, and validates family-office records from public filings behind a verbatim-quote proof gate — an LLM proposes the evidence, code verifies it's actually on the page — then serves the results through a Micro-RAG search app. An idempotent, restart-safe scheduler keyed to each firm means a crashed or rerun batch never reprocesses the same firm twice, with every run replayable from committed state.",
     myRole:
       "Built solo end-to-end: the multi-source discovery + enrichment pipeline, the proof/validation gates and escalation queue, the idempotent GitHub Actions scheduler with committed replay state, and the Micro-RAG (hybrid retrieval + two-LLM grounding control) deployed as a FastAPI/Vercel search app.",
-    highlights: [
-      "A verbatim-quote gate — an LLM proposes a proof sentence, code then verifies it literally appears on the firm's own page — so a firm can't qualify by name, filing class, or press mention alone",
-      "Two-LLM grounding control on every answer: one model drafts from retrieved records only, an independent reviewer approves, refines, or declines it before it ever reaches the user",
-      "An idempotent, restart-safe scheduler — a stable firm key means a crashed or rerun batch never reprocesses a firm twice, with every run replayable from committed JSONL state",
-    ],
+    highlights: [],
     workflow: [
       {
         title: "1. Multi-source discovery",
@@ -606,9 +598,14 @@ export const projects: Project[] = [
           "A structured pre-filter (firm type, has-email) combines with semantic search, named-firm injection (so a proper noun a weak static embedding would miss still reaches the model), and a minimum-similarity score gate that declines rather than answer from weak matches; list/rank/count questions retrieve the whole corpus instead of a top-k slice.",
       },
       {
-        title: "7. Two-LLM grounding control",
+        title: "7. Agentic AI, pair #1 — the Search page (answerer + reviewer)",
         detail:
-          "An answerer model drafts strictly from retrieved records; an independent reviewer model audits that draft against the same records and returns approve / refine / decline — nothing reaches the user unchecked. Deterministic questions (counts, type lists) skip the LLM path entirely, so they can't hallucinate and can't time out.",
+          "An answerer LLM drafts strictly from the retrieved records; a second, independent reviewer LLM audits that draft against the same records and returns approve / refine / decline — nothing reaches the user unchecked. Deterministic questions (counts, type lists) skip the LLM path entirely, so they can't hallucinate and can't time out.",
+      },
+      {
+        title: "8. Agentic AI, pair #2 — the Agent page (worker + authority)",
+        detail:
+          "Give the Agent page an open research goal and a bounded planner LLM runs a tool loop over a fixed set of read-only record tools, gathering evidence step by step. It never gets to decide its own outcome: a separate reviewer LLM authority is the only thing allowed to set release — approving, escalating an ambiguous case to a human queue, or declining — so the worker that did the research can't also grade its own work.",
       },
     ],
     techStack: [
@@ -633,8 +630,8 @@ export const projects: Project[] = [
         detail: "model2vec (potion-base-8M) static embeddings in an in-memory Qdrant store; structured pre-filter + semantic search + named-firm injection + similarity score gate.",
       },
       {
-        label: "Grounding control",
-        detail: "Two-LLM answerer/reviewer split (draft → independent audit → approve/refine/decline); deterministic paths for counts, lists, and rankings.",
+        label: "Agentic AI (two agent pairs)",
+        detail: "Search: answerer LLM drafts, reviewer LLM independently approves/refines/declines. Agent: planner/worker LLM runs a bounded read-only tool loop, a separate reviewer authority alone can release, escalate, or decline. Deterministic paths for counts, lists, and rankings skip the LLM entirely.",
       },
       {
         label: "LLM providers",
@@ -659,6 +656,16 @@ export const projects: Project[] = [
     ],
     demoUrl: "https://family-office-intelligence.vercel.app/",
     accent: "from-emerald-500/20 to-teal-500/10",
+    images: [
+      {
+        src: "/projects/family-office-intelligence/01-search-two-agent-check.png",
+        caption: "Search — \"Two AI agents check each answer: one drafts, one verifies against the records\"",
+      },
+      {
+        src: "/projects/family-office-intelligence/02-research-agent-worker-reviewer.png",
+        caption: "Agent — a bounded worker researches; a separate reviewer alone can authorize or decline",
+      },
+    ],
   },
 ];
 
