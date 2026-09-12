@@ -329,6 +329,24 @@ export const projects: Project[] = [
     ],
     codeUrl: "https://github.com/nageen24/trello-meeting-trello-automation-n8n",
     accent: "from-violet-500/20 to-indigo-500/10",
+    images: [
+      {
+        src: "/projects/trello-meeting-automation/01-meeting-automation-canvas.jpeg",
+        caption: "n8n — the core meeting → Trello pipeline (Read.ai → Claude → Trello → Slack)",
+      },
+      {
+        src: "/projects/trello-meeting-automation/02-meeting-email-drafting-asana.jpeg",
+        caption: "n8n — meeting automation + email drafting, ported to Asana",
+      },
+      {
+        src: "/projects/trello-meeting-automation/03-email-reply-agent-asana.jpeg",
+        caption: "n8n — inbound email reply agent (Gmail trigger, two Claude agents), ported to Asana",
+      },
+      {
+        src: "/projects/trello-meeting-automation/04-trello-slack-chatbot.jpeg",
+        caption: "n8n — the conversational Slack ⇄ Trello agent with 12 REST tools",
+      },
+    ],
   },
   {
     slug: "rag-chatbot",
