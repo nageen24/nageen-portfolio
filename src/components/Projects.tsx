@@ -115,10 +115,7 @@ export default function Projects() {
     <section id="work" className="border-y border-white/5 bg-[#0b0b0e]">
       <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
         <div className="mb-12">
-          <p className="font-mono text-xs uppercase tracking-widest text-emerald-400">
-            / work
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Projects
           </h2>
           <p className="mt-3 max-w-xl text-zinc-400">

@@ -111,15 +111,15 @@ export const projects: Project[] = [
       "Fault-tolerant Beds24 ⇄ Airtable ⇄ Stripe sync with retry + token refresh",
     ],
     tech: [
-      "TanStack Start",
-      "TypeScript",
-      "Airtable",
       "Make.com",
       "Beds24",
+      "Airtable",
       "Stripe",
       "Seam",
       "OpenAI",
       "PriceLabs",
+      "TanStack Start",
+      "TypeScript",
     ],
     links: [
       { label: "Demo", href: "#", type: "demo" },
