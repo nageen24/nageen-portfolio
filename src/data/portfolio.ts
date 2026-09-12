@@ -63,26 +63,6 @@ export const skillGroups = [
   },
 ];
 
-// marquee tickers (short labels)
-export const marqueeSkills = [
-  "Claude",
-  "GPT",
-  "Llama",
-  "Groq",
-  "Whisper",
-  "FastAPI",
-  "Python",
-  "TypeScript",
-  "ChromaDB",
-  "RAG",
-  "n8n",
-  "Docker",
-  "Stripe",
-  "Airtable",
-  "Vercel",
-  "LangChain",
-];
-
 export type Project = {
   slug: string;
   title: string;
@@ -667,8 +647,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "victor",
-    title: "Victor — Trusted City Guide for Textured Hair",
+    slug: "textured-hair-directory",
+    title: "Trusted City Guide for Textured Hair",
     category: "Verified Local Directory · Automated Data Pipeline · MongoDB",
     status: "Private Beta",
     blurb:
@@ -732,11 +712,11 @@ export const projects: Project[] = [
       },
       {
         label: "Taxonomy + pricing",
-        detail: "mapToVictor.mjs — term-to-service-node mapping plus real structured prices from booking platforms when available.",
+        detail: "The ingestion mapper — term-to-service-node mapping plus real structured prices from booking platforms when available.",
       },
       {
         label: "Confidence engine",
-        detail: "Per-signal half-life decay on a saturating curve, computed in src/data/victor.ts.",
+        detail: "Per-signal half-life decay on a saturating curve, computed in the app's shared data module.",
       },
       {
         label: "Resilience",
@@ -760,11 +740,11 @@ export const projects: Project[] = [
     accent: "from-rose-500/20 to-purple-500/10",
     images: [
       {
-        src: "/projects/victor/01-apify-scraper-tasks.png",
+        src: "/projects/textured-hair-directory/01-apify-scraper-tasks.png",
         caption: "Apify — per-city, per-platform scraper tasks (StyleSeat/Booksy, TikTok, Instagram hashtag) all green",
       },
       {
-        src: "/projects/victor/02-mongodb-practitioner-record.png",
+        src: "/projects/textured-hair-directory/02-mongodb-practitioner-record.png",
         caption: "MongoDB — a merged practitioner record: sources, raw evidence, and dedup keys, in a 834-document collection",
       },
     ],
