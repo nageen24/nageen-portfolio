@@ -12,7 +12,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-[#08080f]/80 backdrop-blur-md">
+    <header className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-ink/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <Link href="/#top" className="text-sm font-semibold tracking-tight">
           Nageen Abid

@@ -610,35 +610,35 @@ export const projects: Project[] = [
     techStack: [
       {
         label: "Discovery",
-        detail: "SEC CIK registry, SEC EDGAR full-text, SEC Form ADV roster, Wikidata SPARQL, Google News RSS, ProPublica Form 990 — six free sources, deduped and interleaved into one pool.",
+        detail: "SEC CIK, SEC EDGAR, SEC Form ADV, Wikidata SPARQL, Google News RSS, ProPublica Form 990.",
       },
       {
         label: "Enrichment & proof",
-        detail: "SEC 13F primary_doc.xml + SEC submissions JSON for principal/phone/address; Serper + real-browser render fallback for website discovery; MX + SMTP RCPT probes before an email is marked verified.",
+        detail: "SEC 13F filings, SEC submissions JSON, Serper + browser rendering, MX/SMTP email checks.",
       },
       {
         label: "Validation & escalation",
-        detail: "Firm-level qualification gate plus per-cell source/method/confidence/epistemic labels; ambiguous records open a human escalation case instead of being auto-resolved.",
+        detail: "Firm- and cell-level proof gates with a human escalation queue.",
       },
       {
         label: "Orchestration & state",
-        detail: "GitHub Actions scheduled cron running an idempotent batch \"climb\" keyed by a stable firm key; committed JSON/JSONL state gives restart-safety and full run replay.",
+        detail: "GitHub Actions scheduled, idempotent batch pipeline with committed JSON/JSONL state.",
       },
       {
         label: "Retrieval",
-        detail: "model2vec (potion-base-8M) static embeddings in an in-memory Qdrant store; structured pre-filter + semantic search + named-firm injection + similarity score gate.",
+        detail: "model2vec embeddings, in-memory Qdrant, hybrid structured + semantic search.",
       },
       {
         label: "Agentic AI (two agent pairs)",
-        detail: "Search: answerer LLM drafts, reviewer LLM independently approves/refines/declines. Agent: planner/worker LLM runs a bounded read-only tool loop, a separate reviewer authority alone can release, escalate, or decline. Deterministic paths for counts, lists, and rankings skip the LLM entirely.",
+        detail: "Search: answerer + reviewer LLMs. Agent: worker + authority LLMs.",
       },
       {
         label: "LLM providers",
-        detail: "Groq on two independent keys with automatic failover, Cerebras and Gemini as backups — every provider free-tier, $0 cost by construction.",
+        detail: "Groq (dual keys), Cerebras, Gemini — all free-tier.",
       },
       {
         label: "Backend & deploy",
-        detail: "FastAPI backend deployed as a Vercel serverless function (api/index.py); a vanilla-JS frontend with separate Search and Agent modes.",
+        detail: "FastAPI on Vercel serverless, vanilla-JS frontend.",
       },
     ],
     tech: [

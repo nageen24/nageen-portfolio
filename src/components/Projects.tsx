@@ -3,12 +3,11 @@ import Link from "next/link";
 import { projects, type Project } from "@/data/portfolio";
 import ProjectGallery from "./ProjectGallery";
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const reversed = index % 2 === 1;
+function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="grid gap-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6 md:grid-cols-2 md:items-center md:gap-8 md:p-8">
-      {/* media panel */}
-      <div className={reversed ? "md:order-2" : ""}>
+      {/* media panel — always on the right, text always on the left */}
+      <div className="md:order-2">
         {project.images?.length ? (
           <ProjectGallery images={project.images} status={project.status} />
         ) : (
@@ -39,7 +38,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </div>
 
       {/* text */}
-      <div className={reversed ? "md:order-1" : ""}>
+      <div className="md:order-1">
         <p className="font-mono text-xs uppercase tracking-widest text-accent">
           {project.category}
         </p>
@@ -114,7 +113,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   return (
-    <section id="work" className="border-y border-white/5 bg-[#0b0b0e]">
+    <section id="work" className="border-y border-white/5 bg-ink-soft">
       <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
         <div className="mb-12">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -126,8 +125,8 @@ export default function Projects() {
         </div>
 
         <div className="space-y-6 sm:space-y-8">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} index={i} />
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
       </div>

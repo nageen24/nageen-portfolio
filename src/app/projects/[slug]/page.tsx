@@ -160,7 +160,7 @@ export default async function ProjectPage({
           <div className="relative mt-8 space-y-6 border-l border-white/10 pl-8">
             {project.workflow.map((phase) => (
               <div key={phase.title} className="relative">
-                <span className="absolute -left-[2.35rem] top-0.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-accent bg-[#08080f]" />
+                <span className="absolute -left-[2.35rem] top-0.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-accent bg-ink" />
                 <h3 className="text-base font-semibold text-zinc-100">{phase.title}</h3>
                 {Array.isArray(phase.detail) ? (
                   <ul className="mt-2 space-y-2">
