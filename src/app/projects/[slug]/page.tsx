@@ -24,28 +24,6 @@ export async function generateMetadata({
   };
 }
 
-function LinkIcon({ type }: { type: "live" | "code" | "demo" }) {
-  if (type === "code") {
-    return (
-      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 5l-4 14" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    );
-  }
-  if (type === "demo") {
-    return (
-      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
-        <polygon points="6 4 20 12 6 20 6 4" strokeLinejoin="round" />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M7 17L17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default async function ProjectPage({
   params,
 }: {
@@ -54,8 +32,6 @@ export default async function ProjectPage({
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
-
-  const others = projects.filter((p) => p.slug !== project.slug);
 
   return (
     <main className="mx-auto max-w-5xl px-5 pb-28 pt-24 sm:px-8 sm:pt-28">
@@ -123,25 +99,22 @@ export default async function ProjectPage({
           ))}
         </div>
 
-        {/* links */}
-        <div className="mt-6 flex flex-wrap gap-3">
-          {project.links.map((link) => (
+        {/* demo link */}
+        {project.demoUrl && (
+          <div className="mt-6">
             <a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                link.type === "code"
-                  ? "border border-white/10 text-zinc-200 hover:border-white/25 hover:bg-white/5"
-                  : "bg-accent text-white hover:bg-accent-light"
-              }`}
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-light"
             >
-              <LinkIcon type={link.type} />
-              {link.label}
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="6 4 20 12 6 20 6 4" strokeLinejoin="round" />
+              </svg>
+              View Demo
             </a>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* workflow / how it works */}
@@ -174,22 +147,6 @@ export default async function ProjectPage({
           </ul>
         </div>
       )}
-
-      {/* other projects */}
-      <div className="mt-20 border-t border-white/5 pt-10">
-        <p className="font-mono text-xs uppercase tracking-widest text-zinc-500">/ more projects</p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {others.map((p) => (
-            <Link
-              key={p.slug}
-              href={`/projects/${p.slug}`}
-              className="rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-300 transition-colors hover:border-accent/40 hover:text-white"
-            >
-              {p.title}
-            </Link>
-          ))}
-        </div>
-      </div>
     </main>
   );
 }

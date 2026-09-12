@@ -93,7 +93,7 @@ export type Project = {
   highlights: string[];
   workflow?: { title: string; detail: string }[]; // optional "how it works" phases, detail page only
   tech: string[];
-  links: { label: string; href: string; type: "live" | "code" | "demo" }[];
+  demoUrl?: string; // real live demo link, shown as "View Demo" on card + detail page
   accent: string; // tailwind gradient classes for the mock panel
   image?: string; // optional single screenshot, public/projects/<slug>/<file>
   images?: { src: string; caption: string }[]; // optional gallery, overrides `image`
@@ -108,7 +108,7 @@ export const projects: Project[] = [
     blurb:
       "A full property-management SaaS — owner dashboard, cleaner app, and public site — where Airtable, Make.com, Beds24, Stripe, Seam, and OpenAI run every booking, cleaning, and invoice automatically.",
     myRole:
-      "Built the Make.com automation layer and Airtable data model behind the platform — 15+ production scenarios wiring the owner dashboard, cleaner app, and website to Beds24, Stripe, Seam, and OpenAI.",
+      "I owned the backend end-to-end: the Vercel serverless API (signup, login, session auth, onboarding, account) backed by Airtable, plus the Make.com automation layer wiring 15+ production scenarios across Beds24, Stripe, Seam, and OpenAI.",
     highlights: [
       "Booking → door PIN → guest message → PDF invoice → email, with zero manual steps",
       "GPT agents parse guest messages and route by intent & severity",
@@ -167,20 +167,20 @@ export const projects: Project[] = [
       },
     ],
     tech: [
+      "Node.js",
+      "Vercel Serverless Functions",
+      "REST APIs",
       "Make.com",
-      "Beds24",
-      "Airtable",
-      "Stripe",
-      "Seam",
-      "OpenAI",
+      "Beds24 API",
+      "Airtable API",
+      "Stripe API",
+      "Seam API",
+      "OpenAI API",
       "PriceLabs",
       "TanStack Start",
       "TypeScript",
     ],
-    links: [
-      { label: "Demo", href: "#", type: "demo" },
-      { label: "Code", href: "https://github.com/nageen24", type: "code" },
-    ],
+    demoUrl: "https://demo.nestly.lt/dashboard",
     accent: "from-accent/20 to-violet-500/10",
     images: [
       {
@@ -234,10 +234,6 @@ export const projects: Project[] = [
       "Self-hosted on a live server via Docker",
     ],
     tech: ["Claude", "n8n", "Docker", "Slack", "Trello", "REST APIs"],
-    links: [
-      { label: "Demo", href: "#", type: "demo" },
-      { label: "Code", href: "https://github.com/nageen24", type: "code" },
-    ],
     accent: "from-violet-500/20 to-indigo-500/10",
   },
   {
@@ -253,10 +249,6 @@ export const projects: Project[] = [
       "Grounded answers only — no hallucinated content",
     ],
     tech: ["FastAPI", "ChromaDB", "Claude", "Vercel", "TypeScript"],
-    links: [
-      { label: "Live", href: "#", type: "live" },
-      { label: "Code", href: "https://github.com/nageen24", type: "code" },
-    ],
     accent: "from-sky-500/20 to-cyan-500/10",
   },
   {
@@ -272,10 +264,6 @@ export const projects: Project[] = [
       "Webhook output into downstream n8n automations",
     ],
     tech: ["Electron", "React", "Whisper", "Llama", "Groq", "SQLite"],
-    links: [
-      { label: "Demo", href: "#", type: "demo" },
-      { label: "Code", href: "https://github.com/nageen24", type: "code" },
-    ],
     accent: "from-amber-500/20 to-orange-500/10",
   },
 ];

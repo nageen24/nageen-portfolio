@@ -68,7 +68,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           ))}
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href={`/projects/${project.slug}`}
             className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-accent-light"
@@ -78,6 +78,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
+          {project.demoUrl && (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-white/25 hover:bg-white/5"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="6 4 20 12 6 20 6 4" strokeLinejoin="round" />
+              </svg>
+              View Demo
+            </a>
+          )}
         </div>
       </div>
     </article>
