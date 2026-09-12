@@ -1,0 +1,66 @@
+import type { IconType } from "react-icons";
+import {
+  SiClaude,
+  SiLangchain,
+  SiPython,
+  SiTypescript,
+  SiNodedotjs,
+  SiFastapi,
+  SiNextdotjs,
+  SiReact,
+  SiElectron,
+  SiTanstack,
+  SiMongodb,
+  SiSqlite,
+  SiQdrant,
+  SiAirtable,
+  SiN8N,
+  SiMake,
+  SiZapier,
+  SiTrello,
+  SiDocker,
+  SiVercel,
+  SiGithub,
+  SiBun,
+  SiGoogledrive,
+  SiGmail,
+  SiStripe,
+} from "react-icons/si";
+
+// The full toolset actually used across my projects (see src/data/portfolio.ts
+// `tech` + `skillGroups`), scrolling in the ticker below the hero.
+// A few providers (OpenAI, Groq, ChromaDB, Slack) have no brand icon in
+// Simple Icons — they fall back to a plain monogram badge instead.
+export type Tool = { label: string; icon?: IconType; abbr?: string };
+
+export const tools: Tool[] = [
+  { label: "Claude", icon: SiClaude },
+  { label: "OpenAI (GPT)", abbr: "AI" },
+  { label: "Groq", abbr: "Gq" },
+  { label: "LangChain", icon: SiLangchain },
+  { label: "Python", icon: SiPython },
+  { label: "TypeScript", icon: SiTypescript },
+  { label: "Node.js", icon: SiNodedotjs },
+  { label: "FastAPI", icon: SiFastapi },
+  { label: "Next.js", icon: SiNextdotjs },
+  { label: "React", icon: SiReact },
+  { label: "Electron", icon: SiElectron },
+  { label: "TanStack", icon: SiTanstack },
+  { label: "MongoDB", icon: SiMongodb },
+  { label: "SQLite", icon: SiSqlite },
+  { label: "ChromaDB", abbr: "Ch" },
+  { label: "Qdrant", icon: SiQdrant },
+  { label: "Airtable", icon: SiAirtable },
+  { label: "n8n", icon: SiN8N },
+  { label: "Make.com", icon: SiMake },
+  { label: "Zapier", icon: SiZapier },
+  { label: "Trello", icon: SiTrello },
+  { label: "Docker", icon: SiDocker },
+  { label: "Vercel", icon: SiVercel },
+  { label: "GitHub", icon: SiGithub },
+  { label: "Bun", icon: SiBun },
+  { label: "Google Drive", icon: SiGoogledrive },
+  { label: "Gmail", icon: SiGmail },
+  { label: "Stripe", icon: SiStripe },
+  { label: "Slack", abbr: "Sl" },
+];

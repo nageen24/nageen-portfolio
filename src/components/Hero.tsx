@@ -1,20 +1,5 @@
 import { profile } from "@/data/portfolio";
 
-const heroSkills = [
-  "Agentic AI",
-  "RAG",
-  "LLMs",
-  "Python",
-  "n8n",
-  "Make.com",
-  "Zapier",
-  "Claude",
-  "OpenAI (GPT)",
-  "LangChain",
-  "FastAPI",
-  "Docker",
-];
-
 export default function Hero() {
   return (
     <section
@@ -52,17 +37,6 @@ export default function Hero() {
           >
             View my work
           </a>
-
-          <div className="mt-10 flex max-w-xl flex-wrap items-center justify-center gap-2">
-            {heroSkills.map((skill) => (
-              <span
-                key={skill}
-                className="rounded-full border border-white/10 px-3 py-1.5 text-xs font-medium text-zinc-400"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </section>
