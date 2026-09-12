@@ -108,7 +108,7 @@ export const projects: Project[] = [
     blurb:
       "A full property-management SaaS — owner dashboard, cleaner app, and public site — where Airtable, Make.com, Beds24, Stripe, Seam, and OpenAI run every booking, cleaning, and invoice automatically.",
     myRole:
-      "I owned the backend end-to-end: the Vercel serverless API (signup, login, session auth, onboarding, account) backed by Airtable, plus the Make.com automation layer wiring 15+ production scenarios across Beds24, Stripe, Seam, and OpenAI.",
+      "I built the backend end-to-end: the Vercel serverless API (signup, login, session auth, onboarding, account) backed by Airtable, plus the Make.com automation layer wiring 15+ production scenarios across Beds24, Stripe, Seam, and OpenAI.",
     highlights: [
       "Booking → door PIN → guest message → PDF invoice → email, with zero manual steps",
       "GPT agents parse guest messages and route by intent & severity",
