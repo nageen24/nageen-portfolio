@@ -89,7 +89,9 @@ export type Project = {
   category: string;
   status: string;
   blurb: string;
+  myRole?: string; // what I personally built, shown on the detail page
   highlights: string[];
+  workflow?: { title: string; detail: string }[]; // optional "how it works" phases, detail page only
   tech: string[];
   links: { label: string; href: string; type: "live" | "code" | "demo" }[];
   accent: string; // tailwind gradient classes for the mock panel
@@ -105,10 +107,64 @@ export const projects: Project[] = [
     status: "Live in production",
     blurb:
       "A full property-management SaaS — owner dashboard, cleaner app, and public site — where Airtable, Make.com, Beds24, Stripe, Seam, and OpenAI run every booking, cleaning, and invoice automatically.",
+    myRole:
+      "Built the Make.com automation layer and Airtable data model behind the platform — 15+ production scenarios wiring the owner dashboard, cleaner app, and website to Beds24, Stripe, Seam, and OpenAI.",
     highlights: [
       "Booking → door PIN → guest message → PDF invoice → email, with zero manual steps",
       "GPT agents parse guest messages and route by intent & severity",
       "Fault-tolerant Beds24 ⇄ Airtable ⇄ Stripe sync with retry + token refresh",
+    ],
+    workflow: [
+      {
+        title: "1. Owner onboarding & billing setup",
+        detail:
+          "An owner registers with personal/business/tax details, then links a card via a Stripe SetupIntent. The Stripe Customer ID is written back to Airtable so future charges need zero manual entry.",
+      },
+      {
+        title: "2. Property listing & channel sync",
+        detail:
+          "A 6-step wizard saves the property + starting inventory to Airtable, pairs the smart lock via Seam, and sends price limits to PriceLabs. Once admin-approved, an hourly robot registers the property on Beds24 and it goes live on Airbnb/Booking.com.",
+      },
+      {
+        title: "3. Guest books → PIN → invoice",
+        detail:
+          "A Beds24 webhook fires the moment a guest books: Make.com logs the reservation in Airtable, Seam issues a scoped door PIN, OpenAI drafts a Lithuanian welcome message, and Gmail emails the guest their PIN, message, and PDF invoice — untouched by a human.",
+      },
+      {
+        title: "4. Cleaning & the 1-strike policy",
+        detail:
+          "A nightly robot creates a cleaning job for every check-in; the cleaner claims it in-app and a second robot issues a fresh Seam code for the cleaning window. Cancelling 48h+ out reassigns with no penalty — under 48h or a no-show triggers an instant ban and revoked app access.",
+      },
+      {
+        title: "5. Owner-stay blockouts",
+        detail:
+          "When an owner blocks personal dates, a robot closes them on Beds24, logs a €0 'Owner Stay' with zero management fee, still schedules the checkout clean for the next guest, and emails the owner their own door code.",
+      },
+      {
+        title: "6. Issue reporting & maintenance",
+        detail:
+          "Cleaners report problems straight from the app; guest chat complaints are parsed by OpenAI for category and severity. Both paths land in an Airtable Issues table with admin escalation for anything urgent.",
+      },
+      {
+        title: "7. Laundry & inventory floors",
+        detail:
+          "Every property has a minimum linen/towel stock. A daily robot flags anything under threshold for restocking and logs the cost as an unbilled expense against the owner's next invoice.",
+      },
+      {
+        title: "8. Dynamic pricing",
+        detail:
+          "The owner sets a base/min/max price once; PriceLabs recalculates nightly rates from occupancy, demand, and local events and pushes them to Beds24. The dashboard shows live ADR, occupancy, and revenue gained.",
+      },
+      {
+        title: "9. Monthly billing & VAT compliance",
+        detail:
+          "On the 1st, a robot builds each owner's invoice (20% management fee + cleaning + stock) and emails it; unpaid invoices are auto-charged via Stripe on the 4th. Platform invoices follow strict sequential VAT numbering for Lithuanian tax compliance.",
+      },
+      {
+        title: "10. 30-day offboarding",
+        detail:
+          "On notice, the owner keeps earning — and paying commission — for 30 more days. A nightly robot detects day 30, bills only the remaining unbilled days, and closes the account.",
+      },
     ],
     tech: [
       "Make.com",
@@ -125,14 +181,14 @@ export const projects: Project[] = [
       { label: "Demo", href: "#", type: "demo" },
       { label: "Code", href: "https://github.com/nageen24", type: "code" },
     ],
-    accent: "from-emerald-500/20 to-teal-500/10",
+    accent: "from-accent/20 to-violet-500/10",
     images: [
       {
-        src: "/projects/nestly/01-automations-library.jpeg",
+        src: "/projects/nestly/01-automations-library.png",
         caption: "Make.com — the automation library running the business",
       },
       {
-        src: "/projects/nestly/02-automation-stripe-charge.png",
+        src: "/projects/nestly/02-automation-stripe-charge.jpeg",
         caption: "Make.com — Stripe auto-charge on day 4 of the billing cycle",
       },
       {
@@ -160,8 +216,8 @@ export const projects: Project[] = [
         caption: "Make.com — 30-day owner offboarding & final invoice flow",
       },
       {
-        src: "/projects/nestly/09-automations-library-2.jpeg",
-        caption: "Make.com — pricing, finance & webhook scenarios",
+        src: "/projects/nestly/09-automation-property-sync.jpeg",
+        caption: "Make.com — syncing a new property to Beds24 & PriceLabs",
       },
     ],
   },

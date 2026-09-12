@@ -11,9 +11,9 @@ function WhatsAppIcon() {
 
 export default function Footer() {
   return (
-    <footer id="contact" className="border-t border-white/5 bg-[#0b0b0e]">
+    <footer id="contact" className="border-t border-white/5 bg-[#0a0a13]">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-        <p className="font-mono text-xs uppercase tracking-widest text-emerald-400">
+        <p className="font-mono text-xs uppercase tracking-widest text-accent">
           / contact
         </p>
         <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
@@ -28,7 +28,7 @@ export default function Footer() {
             href={profile.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-black transition-transform hover:scale-[1.03]"
+            className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-accent-light"
           >
             <WhatsAppIcon />
             WhatsApp

@@ -1,41 +1,54 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const links = [
-  { href: "#work", label: "Work" },
-  { href: "#stack", label: "Stack" },
+  { href: "/#work", label: "Work" },
+  { href: "/#stack", label: "Stack" },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-[#0a0a0c]/80 backdrop-blur-md">
+    <header className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-[#08080f]/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <a href="#top" className="text-sm font-semibold tracking-tight">
+        <Link href="/#top" className="text-sm font-semibold tracking-tight">
           Nageen Abid
-        </a>
+        </Link>
 
         {/* desktop links */}
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-3 md:flex">
           {links.map((l) => (
             <li key={l.href}>
-              <a
+              <Link
                 href={l.href}
-                className="text-sm text-zinc-400 transition-colors hover:text-white"
+                className="px-2 text-sm text-zinc-400 transition-colors hover:text-white"
               >
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
             <a
-              href="#contact"
-              className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-sm font-medium text-emerald-300 transition-colors hover:bg-emerald-400/20"
+              href="/resume.pdf"
+              download
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-1.5 text-sm font-medium text-zinc-200 transition-colors hover:border-white/25 hover:bg-white/5"
+            >
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Resume
+            </a>
+          </li>
+          <li>
+            <Link
+              href="/#contact"
+              className="rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent transition-colors hover:bg-accent/20"
             >
               Contact
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -72,23 +85,36 @@ export default function Nav() {
           <ul className="flex flex-col px-5 py-2">
             {links.map((l) => (
               <li key={l.href}>
-                <a
+                <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
                   className="block py-3 text-zinc-300"
                 >
                   {l.label}
-                </a>
+                </Link>
               </li>
             ))}
             <li>
               <a
-                href="#contact"
+                href="/resume.pdf"
+                download
                 onClick={() => setOpen(false)}
-                className="mt-2 mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300"
+                className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-2 text-sm font-medium text-zinc-200"
+              >
+                <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Resume
+              </a>
+            </li>
+            <li>
+              <Link
+                href="/#contact"
+                onClick={() => setOpen(false)}
+                className="mt-2 mb-3 inline-block rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-medium text-accent"
               >
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

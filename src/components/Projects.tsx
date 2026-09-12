@@ -1,28 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { projects, type Project } from "@/data/portfolio";
 import ProjectGallery from "./ProjectGallery";
-
-function LinkIcon({ type }: { type: Project["links"][number]["type"] }) {
-  if (type === "code") {
-    return (
-      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 5l-4 14" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    );
-  }
-  if (type === "demo") {
-    return (
-      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
-        <polygon points="6 4 20 12 6 20 6 4" strokeLinejoin="round" />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
-      <path d="M7 17L17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const reversed = index % 2 === 1;
@@ -61,7 +40,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
       {/* text */}
       <div className={reversed ? "md:order-1" : ""}>
-        <p className="font-mono text-xs uppercase tracking-widest text-emerald-400">
+        <p className="font-mono text-xs uppercase tracking-widest text-accent">
           {project.category}
         </p>
         <h3 className="mt-2 text-xl font-bold tracking-tight sm:text-2xl">
@@ -72,7 +51,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <ul className="mt-4 space-y-2">
           {project.highlights.map((h) => (
             <li key={h} className="flex gap-2 text-sm text-zinc-400">
-              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-400" />
+              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
               {h}
             </li>
           ))}
@@ -89,21 +68,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           ))}
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          {project.links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                link.type === "code"
-                  ? "border border-white/10 text-zinc-200 hover:border-white/25 hover:bg-white/5"
-                  : "bg-emerald-400 text-black hover:bg-emerald-300"
-              }`}
-            >
-              <LinkIcon type={link.type} />
-              {link.label}
-            </a>
-          ))}
+        <div className="mt-6">
+          <Link
+            href={`/projects/${project.slug}`}
+            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-accent-light"
+          >
+            View details
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
         </div>
       </div>
     </article>

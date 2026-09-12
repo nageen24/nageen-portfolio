@@ -4,7 +4,7 @@ export default function Skills() {
   return (
     <section id="stack" className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
       <div className="mb-12">
-        <p className="font-mono text-xs uppercase tracking-widest text-emerald-400">
+        <p className="font-mono text-xs uppercase tracking-widest text-accent">
           / stack
         </p>
         <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">

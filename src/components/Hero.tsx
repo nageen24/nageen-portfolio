@@ -7,15 +7,15 @@ export default function Hero() {
       className="relative overflow-hidden border-b border-white/5"
     >
       {/* backdrop glows */}
-      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
       <div className="pointer-events-none absolute top-10 right-0 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-60" />
 
       <div className="relative mx-auto max-w-6xl px-5 pt-28 pb-16 sm:px-8 sm:pt-36 sm:pb-24">
         <div className="fade-up max-w-2xl">
           {profile.available && (
-            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 text-xs font-medium text-emerald-300">
-              <span className="pulse-dot h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-medium text-accent-light">
+              <span className="pulse-dot h-2 w-2 rounded-full bg-accent" />
               Available for work
             </span>
           )}
@@ -23,7 +23,7 @@ export default function Hero() {
           <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             {profile.name}
           </h1>
-          <p className="mt-3 font-mono text-sm text-emerald-400 sm:text-base">
+          <p className="mt-3 font-mono text-sm text-accent-light sm:text-base">
             {profile.role} · {profile.location}
           </p>
 
@@ -34,7 +34,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href="#work"
-              className="rounded-full bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-black transition-transform hover:scale-[1.03]"
+              className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-accent-light"
             >
               View my work
             </a>

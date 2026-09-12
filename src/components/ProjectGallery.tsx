@@ -70,7 +70,7 @@ export default function ProjectGallery({
                 onClick={() => setIndex(i)}
                 aria-label={`Show screenshot ${i + 1}`}
                 className={`h-1.5 w-1.5 cursor-pointer rounded-full transition-colors ${
-                  i === index ? "bg-emerald-400" : "bg-white/20 hover:bg-white/40"
+                  i === index ? "bg-accent" : "bg-white/20 hover:bg-white/40"
                 }`}
               />
             ))}
