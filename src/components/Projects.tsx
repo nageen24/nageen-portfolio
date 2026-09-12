@@ -48,14 +48,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </h3>
         <p className="mt-3 text-sm leading-relaxed text-zinc-400">{project.blurb}</p>
 
-        <ul className="mt-4 space-y-2">
-          {project.highlights.map((h) => (
-            <li key={h} className="flex gap-2 text-sm text-zinc-400">
-              <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
-              {h}
-            </li>
-          ))}
-        </ul>
+        {project.highlights.length > 0 && (
+          <ul className="mt-4 space-y-2">
+            {project.highlights.map((h) => (
+              <li key={h} className="flex gap-2 text-sm text-zinc-400">
+                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                {h}
+              </li>
+            ))}
+          </ul>
+        )}
 
         <div className="mt-5 flex flex-wrap gap-2">
           {project.tech.map((t) => (

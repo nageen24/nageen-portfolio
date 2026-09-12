@@ -362,14 +362,10 @@ export const projects: Project[] = [
     category: "Embeddable AI Widget · RAG Backend · FastAPI",
     status: "In Production",
     blurb:
-      "An embeddable support-chat widget that answers strictly from a company's own documents — FastAPI, BM25 retrieval, and Groq's GPT-OSS 20B behind a strict, word-capped brand-voice persona.",
+      "An embeddable support-chat widget that answers strictly from a company's own documents. FastAPI, BM25 keyword retrieval (no embeddings, no vector DB), and Groq's GPT-OSS 20B behind a 4-way intent router. A strict, word-capped brand-voice persona is enforced twice — in the prompt, and again in post-processing.",
     myRole:
       "Built solo end-to-end: scraped the client's site into a structured knowledge base, wrote the ingestion/chunking pipeline, the BM25 retrieval + intent-routing RAG core with a swappable LLM provider (Groq / Ollama), the embeddable vanilla-JS widget, and the Mangum/Vercel serverless deployment.",
-    highlights: [
-      "4-way intent router — RAG retrieval only fires for real company questions, never for small talk",
-      "Strict 2-sentence, word-capped brand-voice persona enforced twice — in the prompt, and again in post-processing",
-      "BM25 keyword retrieval over chunked docs — no embeddings, no vector DB",
-    ],
+    highlights: [],
     techStack: [
       {
         label: "Backend",
