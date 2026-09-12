@@ -260,11 +260,8 @@ export const projects: Project[] = [
     myRole:
       "Designed and built all 5 workflows end-to-end — the Claude agent prompts and structured-output schemas, the n8n orchestration logic, and the direct Trello/Gmail/Drive REST tool layer each agent calls. Also provisioned the infrastructure itself: n8n self-hosted on a VPS, reachable over a domain-mapped HTTPS/TLS endpoint so the Read.ai webhook, Gmail trigger, and Slack Events subscription each have a secure, public target to call.",
     highlights: [
-      "Self-hosted n8n on a VPS behind a domain-mapped HTTPS/TLS endpoint — public webhooks (Read.ai, Gmail, Slack Events) reach it securely, not the n8n cloud sandbox",
-      "Meeting transcript → Claude JSON summary → full Trello board, or AI-matched straight into an existing one",
-      "Same pipeline, plus a Claude agent that drafts follow-up emails straight into Gmail as drafts",
-      "Gmail inbox watched end-to-end: AI classifies the email, resolves the right project, drafts a reply",
-      "3-trigger pending-tasks bot: Drive upload, daily 10 AM schedule, or on-demand via Slack chatbot",
+      "Self-hosted n8n on a VPS behind a domain-mapped HTTPS/TLS endpoint — not the n8n cloud sandbox",
+      "Meeting transcript → Claude JSON summary → full Trello board, or AI-matched into an existing one",
       "Slack-native Claude agent with 12 direct Trello REST tools — full board/list/card CRUD by chat",
     ],
     workflow: [
