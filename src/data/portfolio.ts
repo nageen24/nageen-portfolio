@@ -666,6 +666,65 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "victor",
+    title: "Victor — Trusted City Guide for Textured Hair",
+    category: "Verified Local Directory · Automated Data Pipeline · MongoDB",
+    status: "Private Beta",
+    blurb:
+      "A deterministic, zero-hallucination directory of verified textured-hair practitioners across four cities — an Apify scraping pipeline merges listings into MongoDB, then a rule-based classifier and a confidence-decay engine score how trustworthy each one still is.",
+    myRole:
+      "I own the data pipeline and backend, not the UI: the multi-source Apify scraping + dedup engine, the relevance classifier, the taxonomy/pricing mapping, the confidence-decay scoring, and the MongoDB schema plus the webhook-driven GitHub Actions automation around it.",
+    highlights: [],
+    workflow: [
+      {
+        title: "1. Multi-source discovery",
+        detail:
+          "Apify actors scrape Google Maps, Instagram, and directories across Atlanta, New York, Bangkok, and Tel Aviv on their own independent 15-day schedule.",
+      },
+      {
+        title: "2. Cross-source dedup",
+        detail:
+          "Records are merged by normalized phone/domain/name matching that deliberately ignores shared aggregator domains, so a Yelp tracking link can't merge 90 unrelated salons into one.",
+      },
+      {
+        title: "3. Relevance gate",
+        detail:
+          "A listing only counts as a real hair business if it has a real name, a real contact, and its own bio or category — never caption text — actually claims hair work.",
+      },
+      {
+        title: "4. Taxonomy + pricing",
+        detail:
+          "Listing text is matched against a service/substrate taxonomy (silk press, locs, 4C, and more), preferring real structured prices from booking platforms over inferred ones.",
+      },
+      {
+        title: "5. Confidence-decay engine",
+        detail:
+          "Every verification signal carries its own half-life and decays on a saturating curve, so no single signal can fake certainty into a false \"verified.\"",
+      },
+      {
+        title: "6. Honest scarcity",
+        detail:
+          "Results are labelled dense, thin, bare, or empty rather than padded, and the assistant answers only from the index — it never invents a practitioner when there isn't one.",
+      },
+      {
+        title: "7. Resilient pipeline",
+        detail:
+          "A Vercel webhook reacts the instant an Apify task finishes, success or failure, dispatching GitHub Actions to ingest or log-and-retry — billing-blocked runs auto-resume every 30 minutes.",
+      },
+    ],
+    tech: [
+      "Apify",
+      "MongoDB",
+      "TanStack Start",
+      "React 19",
+      "Bun",
+      "GitHub Actions",
+      "Vercel",
+      "Tailwind CSS",
+    ],
+    accent: "from-rose-500/20 to-purple-500/10",
+  },
 ];
 
 export const experience = [
