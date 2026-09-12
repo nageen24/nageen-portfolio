@@ -196,12 +196,24 @@ export const projects: Project[] = [
         caption: "Owner dashboard — live revenue, occupancy & channel mix",
       },
       {
+        src: "/projects/nestly/10-reservations.png",
+        caption: "Reservations — guest bookings across every channel",
+      },
+      {
         src: "/projects/nestly/04-properties.png",
         caption: "Properties — listings synced from Beds24",
       },
       {
+        src: "/projects/nestly/11-calendar.png",
+        caption: "Calendar — monthly availability across every property",
+      },
+      {
         src: "/projects/nestly/05-cleaning-kanban.png",
         caption: "Cleaning schedule — kanban by status with live alerts",
+      },
+      {
+        src: "/projects/nestly/12-financials.png",
+        caption: "Financials — monthly billing breakdown & payout ledger",
       },
       {
         src: "/projects/nestly/06-invoices.png",
@@ -212,12 +224,28 @@ export const projects: Project[] = [
         caption: "Cleaner app — today's job with live smart-lock door code",
       },
       {
+        src: "/projects/nestly/13-cleaner-tasks.png",
+        caption: "Cleaner app — all tasks, upcoming & completed",
+      },
+      {
+        src: "/projects/nestly/14-cleaner-earnings.png",
+        caption: "Cleaner app — earnings & payout history",
+      },
+      {
         src: "/projects/nestly/08-automation-offboarding.jpeg",
         caption: "Make.com — 30-day owner offboarding & final invoice flow",
       },
       {
         src: "/projects/nestly/09-automation-property-sync.jpeg",
         caption: "Make.com — syncing a new property to Beds24 & PriceLabs",
+      },
+      {
+        src: "/projects/nestly/15-automation-finance-invoice.jpeg",
+        caption: "Make.com — monthly invoice generation scenario",
+      },
+      {
+        src: "/projects/nestly/16-automation-scenarios-2.png",
+        caption: "Make.com — more of the automation library (pricing, finance, webhooks)",
       },
     ],
   },
