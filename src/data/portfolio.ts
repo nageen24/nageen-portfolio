@@ -253,10 +253,10 @@ export const projects: Project[] = [
   {
     slug: "trello-meeting-automation",
     title: "Meeting & Task Automation Suite",
-    category: "n8n Automation · Built for Trello, Asana & Monday.com",
+    category: "AI Agents · n8n Automation · Trello, Asana & Monday.com",
     status: "Self-hosted · n8n",
     blurb:
-      "Five n8n + Claude workflows that turn meeting transcripts, inbound email, and Slack chat into structured project-board tasks — built for Trello, and just as portable to Asana or Monday.com.",
+      "A team of AI Agents, powered by the Anthropic API and orchestrated in n8n, that read meeting transcripts, inbound email, and Slack chat — then turn them into structured project-board tasks. Built for Trello, and just as portable to Asana or Monday.com.",
     myRole:
       "Designed and built all 5 workflows end-to-end — the Claude agent prompts and structured-output schemas, the n8n orchestration logic, and the direct Trello/Gmail/Drive REST tool layer each agent calls.",
     highlights: [
@@ -292,9 +292,10 @@ export const projects: Project[] = [
       },
     ],
     tech: [
+      "AI Agents",
+      "Anthropic API",
+      "LangChain",
       "n8n",
-      "Claude (Anthropic)",
-      "LangChain Agents",
       "Trello REST API",
       "Slack API",
       "Gmail API",
