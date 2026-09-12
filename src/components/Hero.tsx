@@ -1,5 +1,20 @@
 import { profile } from "@/data/portfolio";
 
+const heroSkills = [
+  "Agentic AI",
+  "RAG",
+  "LLMs",
+  "Python",
+  "n8n",
+  "Make.com",
+  "Zapier",
+  "Claude",
+  "OpenAI (GPT)",
+  "LangChain",
+  "FastAPI",
+  "Docker",
+];
+
 export default function Hero() {
   return (
     <section
@@ -11,8 +26,8 @@ export default function Hero() {
       <div className="pointer-events-none absolute top-10 right-0 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-60" />
 
-      <div className="relative mx-auto max-w-6xl px-5 pt-28 pb-16 sm:px-8 sm:pt-36 sm:pb-24">
-        <div className="fade-up max-w-2xl">
+      <div className="relative mx-auto max-w-3xl px-5 pt-28 pb-16 text-center sm:px-8 sm:pt-36 sm:pb-24">
+        <div className="fade-up flex flex-col items-center">
           {profile.available && (
             <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-medium text-accent-light">
               <span className="pulse-dot h-2 w-2 rounded-full bg-accent" />
@@ -31,31 +46,22 @@ export default function Hero() {
             {profile.tagline}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href="#work"
-              className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-accent-light"
-            >
-              View my work
-            </a>
-            <a
-              href={`mailto:${profile.email}`}
-              className="rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-white/25 hover:bg-white/5"
-            >
-              Get in touch
-            </a>
-          </div>
+          <a
+            href="#work"
+            className="mt-8 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-accent-light"
+          >
+            View my work
+          </a>
 
-          <div className="mt-8 flex items-center gap-5 text-sm text-zinc-500">
-            <a href={profile.github} className="transition-colors hover:text-white">
-              GitHub
-            </a>
-            <a href={profile.linkedin} className="transition-colors hover:text-white">
-              LinkedIn
-            </a>
-            <a href={`mailto:${profile.email}`} className="transition-colors hover:text-white">
-              Email
-            </a>
+          <div className="mt-10 flex max-w-xl flex-wrap items-center justify-center gap-2">
+            {heroSkills.map((skill) => (
+              <span
+                key={skill}
+                className="rounded-full border border-white/10 px-3 py-1.5 text-xs font-medium text-zinc-400"
+              >
+                {skill}
+              </span>
+            ))}
           </div>
         </div>
       </div>

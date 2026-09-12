@@ -11,7 +11,7 @@ export const profile = {
   github: "https://github.com/nageen24",
   available: true,
   tagline:
-    "I build multi-agent AI systems, RAG pipelines, and LLM-powered backends that run live in production.",
+    "AI Engineer in Pakistan, building agentic AI systems, RAG pipelines, and LLM-powered backends with Python, n8n, Make & Zapier — shipping multi-agent automations and SaaS products that run live in production.",
   bio: "AI Engineer with 2+ years of production experience shipping end-to-end AI products — from a fully automated property-management platform that runs every booking, invoice, and smart-lock access with zero manual steps, to self-hosted multi-agent workflows and grounded RAG chatbots.",
 };
 
@@ -680,37 +680,71 @@ export const projects: Project[] = [
       {
         title: "1. Multi-source discovery",
         detail:
-          "Apify actors scrape Google Maps, Instagram, and directories across Atlanta, New York, Bangkok, and Tel Aviv on their own independent 15-day schedule.",
+          "Apify actors scrape Google Maps, Instagram, and local directories across Atlanta, New York, Bangkok, and Tel Aviv on their own independent 15-day schedule. Search terms and neighborhood/area lists are curated per city so a query set doesn't quietly default everything to Atlanta.",
       },
       {
         title: "2. Cross-source dedup",
         detail:
-          "Records are merged by normalized phone/domain/name matching that deliberately ignores shared aggregator domains, so a Yelp tracking link can't merge 90 unrelated salons into one.",
+          "Records are merged by normalized phone/domain/name matching that deliberately ignores shared aggregator domains — Yelp, Instagram, Booksy, Linktree — since those are shared by hundreds of businesses, not proof of a match. A real bug this caught: a Yelp tracking-link false match once merged 90 unrelated salons into one record.",
       },
       {
         title: "3. Relevance gate",
         detail:
-          "A listing only counts as a real hair business if it has a real name, a real contact, and its own bio or category — never caption text — actually claims hair work.",
+          "A listing only counts as a real hair business if it clears three gates — a real name, a real contact, and its own bio/category (never caption text) actually claiming hair work. Rebuilt after the first version let customer and influencer accounts through purely because their captions happened to mention braids.",
       },
       {
         title: "4. Taxonomy + pricing",
         detail:
-          "Listing text is matched against a service/substrate taxonomy (silk press, locs, 4C, and more), preferring real structured prices from booking platforms over inferred ones.",
+          "Listing text is matched against a service/substrate taxonomy (silk press, locs, 4C, and more) using longest-term-first matching so \"box braids\" wins over a bare \"braids.\" Real structured prices from booking platforms are used whenever a source provides them, ahead of inferring anything.",
       },
       {
         title: "5. Confidence-decay engine",
         detail:
-          "Every verification signal carries its own half-life and decays on a saturating curve, so no single signal can fake certainty into a false \"verified.\"",
+          "Each verification signal — human check, Instagram activity, community referral, booking-endpoint check — carries its own weight and half-life, decaying on a saturating curve so no single signal alone can push a score to certainty. Scores band into verified / likely current / unconfirmed, never a flat yes-or-no.",
       },
       {
         title: "6. Honest scarcity",
         detail:
-          "Results are labelled dense, thin, bare, or empty rather than padded, and the assistant answers only from the index — it never invents a practitioner when there isn't one.",
+          "Search results are labelled dense (10+), thin (2–9), bare (1), or empty rather than padded to look fuller than the data supports. The assistant is deliberately deterministic, not an LLM — it answers only from the index and states plainly when it has no verified match, rather than risk inventing one.",
       },
       {
         title: "7. Resilient pipeline",
         detail:
-          "A Vercel webhook reacts the instant an Apify task finishes, success or failure, dispatching GitHub Actions to ingest or log-and-retry — billing-blocked runs auto-resume every 30 minutes.",
+          "A Vercel webhook reacts the instant an Apify task finishes, success or failure, dispatching GitHub Actions to ingest the dataset or log-and-alert. Runs blocked by exhausted Apify usage credit land in a pending-work queue that a 30-minute cron auto-resumes once budget is back.",
+      },
+    ],
+    techStack: [
+      {
+        label: "Automation pipeline",
+        detail: "25+ Bun scripts (scripts/) for discovery, dedup, classification, enrichment, and image rehosting, orchestrated by 2 GitHub Actions workflows.",
+      },
+      {
+        label: "Discovery",
+        detail: "Apify actors scraping Google Maps, Instagram, and directories across 4 cities on their own independent 15-day schedule.",
+      },
+      {
+        label: "Dedup & merge",
+        detail: "matchRules.mjs — normalized phone/domain/name matching with a shared-aggregator-domain blocklist (Yelp, Instagram, Booksy, and more).",
+      },
+      {
+        label: "Relevance filter",
+        detail: "classify.mjs — a 3-gate check (real name + real contact + bio/category hair signal) that keeps customer and influencer accounts out.",
+      },
+      {
+        label: "Taxonomy + pricing",
+        detail: "mapToVictor.mjs — term-to-service-node mapping plus real structured prices from booking platforms when available.",
+      },
+      {
+        label: "Confidence engine",
+        detail: "Per-signal half-life decay on a saturating curve, computed in src/data/victor.ts.",
+      },
+      {
+        label: "Resilience",
+        detail: "A Vercel webhook plus a billing-aware retry queue (scripts/retry-pending.mjs) auto-resumes failed runs every 30 minutes.",
+      },
+      {
+        label: "Backend & data",
+        detail: "Bun runtime, MongoDB schema, TanStack Start server functions.",
       },
     ],
     tech: [
