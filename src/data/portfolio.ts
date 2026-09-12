@@ -256,13 +256,13 @@ export const projects: Project[] = [
     category: "AI Agents · n8n Automation · Trello, Asana & Monday.com",
     status: "Self-Hosted on a VPS",
     blurb:
-      "A team of AI Agents, powered by the Anthropic API and orchestrated in n8n, that read meeting transcripts, inbound email, and Slack chat — then turn them into structured project-board tasks. Built for Trello, and just as portable to Asana or Monday.com.",
+      "Five AI Agents, orchestrated in n8n on a self-hosted VPS — reading meeting transcripts, inbound email, and Slack chat — that create, match, and manage tasks directly on Trello, Asana, or Monday.com boards.",
     myRole:
       "Designed and built all 5 workflows end-to-end — the Claude agent prompts and structured-output schemas, the n8n orchestration logic, and the direct Trello/Gmail/Drive REST tool layer each agent calls. Also provisioned the infrastructure itself: n8n self-hosted on a VPS, reachable over a domain-mapped HTTPS/TLS endpoint so the Read.ai webhook, Gmail trigger, and Slack Events subscription each have a secure, public target to call.",
     highlights: [
-      "Self-hosted n8n on a VPS behind a domain-mapped HTTPS/TLS endpoint — not the n8n cloud sandbox",
-      "Meeting transcript → Claude JSON summary → full Trello board, or AI-matched into an existing one",
-      "Slack-native Claude agent with 12 direct Trello REST tools — full board/list/card CRUD by chat",
+      "Meeting transcripts become a full Trello board (or get matched into an existing one), with follow-up emails drafted straight into Gmail",
+      "Every inbound email is classified, matched to the right project, and answered with a context-aware drafted reply",
+      "A Slack-native agent runs full Trello CRUD by chat, while a second bot reports pending tasks daily, on file upload, or on request",
     ],
     workflow: [
       {
