@@ -91,7 +91,7 @@ export type Project = {
   blurb: string;
   myRole?: string; // what I personally built, shown on the detail page
   highlights: string[];
-  workflow?: { title: string; detail: string }[]; // optional "how it works" phases, detail page only
+  workflow?: { title: string; detail: string | string[] }[]; // optional "how it works" phases, detail page only — string[] renders as bullets
   tech: string[];
   demoUrl?: string; // real live demo link, shown as "View Demo" on card + detail page
   codeUrl?: string; // real public repo link, shown as "View Code" on card + detail page
@@ -260,35 +260,58 @@ export const projects: Project[] = [
     myRole:
       "Designed and built all 5 workflows end-to-end — the Claude agent prompts and structured-output schemas, the n8n orchestration logic, and the direct Trello/Gmail/Drive REST tool layer each agent calls.",
     highlights: [
-      "Read.ai transcript → Claude summary → full Trello board (lists, cards, comments), zero manual entry",
-      "Gmail inbox watched end-to-end: AI classifies, matches the project, and drafts context-aware replies",
+      "Meeting transcript → Claude JSON summary → full Trello board, or AI-matched straight into an existing one",
+      "Same pipeline, plus a Claude agent that drafts follow-up emails straight into Gmail as drafts",
+      "Gmail inbox watched end-to-end: AI classifies the email, resolves the right project, drafts a reply",
+      "3-trigger pending-tasks bot: Drive upload, daily 10 AM schedule, or on-demand via Slack chatbot",
       "Slack-native Claude agent with 12 direct Trello REST tools — full board/list/card CRUD by chat",
     ],
     workflow: [
       {
         title: "1. Meeting → Trello board",
-        detail:
-          "A Read.ai webhook delivers the raw meeting transcript. Claude summarizes it into a validated JSON structure, then the workflow creates a full Trello board — a Topic list plus Overview, Action Items, Decisions, Blockers, and Follow-ups cards — and uploads a formatted meeting-minutes doc to Google Drive. Two Claude agents (a Board Matcher and a Smart Card Creator) decide whether to reuse an existing board and handle the list/card creation with their own Trello API tools.",
+        detail: [
+          "Read.ai webhook delivers the raw transcript; a Code node extracts it, builds the prompt, and a direct Anthropic API call summarizes it into a structured JSON (overview, participants, topics, highlights, action items, decisions, blockers, follow-ups) — validated before use.",
+          "From that JSON, three things run in parallel: a formatted meeting-minutes Google Doc is built and uploaded (its Drive link extracted for later), a second and separate Claude call drafts a natural-language Slack recap, and AI Agent 1 (\"Board Matcher\") checks Trello for a board that already matches this meeting.",
+          "Board found → AI Agent 2 (\"Smart Card Creator\") takes over: it can create lists/cards, but also pull existing cards, add comments, and update cards — so it extends the board instead of duplicating it.",
+          "No board found → a fully deterministic fallback creates a brand-new board, a Topic list (Overview card + one Action Item card per action item, looped), and a Highlights list (Decisions, Blockers, Follow-ups cards) — no AI needed for this half.",
+          "Everything converges into one Slack message built dynamically — \"Meeting added to existing board\" vs. \"New Meeting Summary Ready\" — with the title/date/participants, the Claude-written recap, the Drive doc link, and a direct link to whichever board was used, then the workflow responds to the original webhook.",
+        ],
       },
       {
         title: "2. Meeting → Trello + drafted emails",
-        detail:
-          "The superset pipeline: everything above, plus an intent-detection step that flags which follow-ups need an email. A Claude drafting agent pulls supporting context from Google Drive and the matched Trello board, writes the reply, and saves it straight into Gmail as a draft — then pings Slack that drafts are ready for review.",
+        detail: [
+          "Everything from workflow #1, unchanged, plus a tail that runs once the meeting is fully processed: an intent-check decides whether any follow-ups actually need an email, then splits each one into its own item.",
+          "For each item, the workflow searches Google Drive for supporting documents and builds a context block from what it finds.",
+          "A Claude drafting agent writes the email using that Drive context plus a tool that pulls the matched Trello board's cards for reference, with a structured-output parser keeping the draft in a clean, savable shape.",
+          "Each draft is saved directly into Gmail (not sent), then a separate Slack message tells the team the drafts are ready to review.",
+        ],
       },
       {
         title: "3. Inbound email → AI-drafted reply",
-        detail:
-          "A Gmail trigger watches the inbox. Claude first classifies whether an email is worth replying to, then a Project Resolver agent matches it to the right Trello board using its own set of Trello + Drive tools (boards, lists, cards, comments, checklists, members, doc search). A second agent drafts a context-aware reply into Gmail, and Slack is notified either way — draft ready, or no project match found.",
+        detail: [
+          "A Gmail trigger fires on every new email; Claude classifies it by category first, and a \"Worth Replying?\" gate drops anything that doesn't need a response before it ever reaches an agent.",
+          "Agent A (\"Project Resolver\") is the deep-context step — 8 tools: list Trello boards, get lists/cards/comments/checklists/members, and search + read Google Drive docs, all used to figure out which project this email actually belongs to.",
+          "No match → Slack gets a \"no project match\" notice and the workflow stops there, so nothing gets drafted blind.",
+          "Match found → Agent B (\"Email Drafter\") writes a context-aware reply using everything Agent A gathered, saves it as a Gmail draft, and Slack is notified the draft is ready.",
+        ],
       },
       {
         title: "4. Pending-tasks Slack bot",
-        detail:
-          "Three triggers feed one pipeline: a new Google Drive file, a 10 AM daily schedule, or a direct Slack request. A router agent with conversational memory decides whether to run the full pipeline or just send a quick reply. Drive documents are converted, deduplicated, and categorized by one Claude agent; a second agent matches them to the right Trello board; a third composes the final pending-tasks summary and posts it to Slack.",
+        detail: [
+          "Three triggers converge on one pipeline: a new Google Drive file, a daily 10 AM schedule, or a Slack message. Slack requests go through a Router Agent first — a Claude agent with its own memory and a quick-reply tool — which decides whether to run the full pipeline or just answer directly, so casual questions don't trigger a full scan.",
+          "Every Drive file is listed, routed by MIME type, and normalized to plain text — native Google Docs export directly, while other formats (e.g. an uploaded Word doc) are converted to a temporary Google Doc, exported, then the temp copy is deleted — the dedup + cleanup logic this workflow is named for.",
+          "AI Agent 1 (\"Drive Categorizer\") groups the extracted text by project, Trello's full board list is pulled, and the workflow loops project-by-project through AI Agent 2 (\"Trello Matcher\"), which uses a get_board_detail tool to match each project to its board and pull the pending cards.",
+          "Once every project's been checked, AI Agent 3 (\"Message Composer\") writes the final summary and posts it to Slack with its own send-to-Slack tool — or a plain \"nothing pending\" message if there's nothing to report.",
+        ],
       },
       {
         title: "5. Conversational Slack ⇄ Trello agent",
-        detail:
-          "A Slack-native Claude agent with 12 direct Trello REST tools — create/delete boards, create/rename/archive lists, create/update/move/delete cards. It resolves plain-English names to Trello IDs itself (never asks the user for an ID), replies in-thread in a natural, human tone, and ignores its own bot messages to avoid reply loops.",
+        detail: [
+          "A Slack Trigger fires on every message; the event is normalized and an IF gate drops the bot's own messages so it can never reply to itself.",
+          "One Claude agent holds all 12 Trello REST tools directly — get/create/delete boards, get/create/rename/archive lists, get/create/update/move/delete cards.",
+          "It never asks for an ID: given a name, it calls the matching \"get\" tool first, finds the item by name, and only then acts — resolving boards, then lists, then cards, in that order.",
+          "Replies land back in the same Slack thread, written in a deliberately casual, human tone rather than a robotic confirmation.",
+        ],
       },
     ],
     tech: [

@@ -143,7 +143,18 @@ export default async function ProjectPage({
               <div key={phase.title} className="relative">
                 <span className="absolute -left-[2.35rem] top-0.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-accent bg-[#08080f]" />
                 <h3 className="text-base font-semibold text-zinc-100">{phase.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">{phase.detail}</p>
+                {Array.isArray(phase.detail) ? (
+                  <ul className="mt-2 space-y-2">
+                    {phase.detail.map((line) => (
+                      <li key={line} className="flex gap-2.5 text-sm leading-relaxed text-zinc-400">
+                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent/60" />
+                        {line}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">{phase.detail}</p>
+                )}
               </div>
             ))}
           </div>
