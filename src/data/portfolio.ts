@@ -4,6 +4,9 @@ export const profile = {
   location: "Pakistan",
   email: "nageenabid0624@gmail.com",
   phone: "+92 312 6243067",
+  whatsapp:
+    "https://wa.me/923126243067?text=" +
+    encodeURIComponent("Hi Nageen, I saw your portfolio and would like to connect."),
   linkedin: "https://linkedin.com/in/nageen-abid",
   github: "https://github.com/nageen24",
   available: true,
@@ -11,13 +14,6 @@ export const profile = {
     "I build multi-agent AI systems, RAG pipelines, and LLM-powered backends that run live in production.",
   bio: "AI Engineer with 2+ years of production experience shipping end-to-end AI products — from a fully automated property-management platform that runs every booking, invoice, and smart-lock access with zero manual steps, to self-hosted multi-agent workflows and grounded RAG chatbots.",
 };
-
-export const stats = [
-  { value: "2+", label: "Years in production" },
-  { value: "4", label: "AI products live" },
-  { value: "15+", label: "Automation pipelines" },
-  { value: "100%", label: "Booking lifecycle automated" },
-];
 
 export const skillGroups = [
   {

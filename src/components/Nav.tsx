@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { profile } from "@/data/portfolio";
 
 const links = [
   { href: "#work", label: "Work" },
@@ -14,8 +13,8 @@ export default function Nav() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-[#0a0a0c]/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <a href="#top" className="font-mono text-sm font-semibold tracking-tight">
-          <span className="text-emerald-400">~/</span>nageen
+        <a href="#top" className="text-sm font-semibold tracking-tight">
+          Nageen Abid
         </a>
 
         {/* desktop links */}
@@ -32,10 +31,10 @@ export default function Nav() {
           ))}
           <li>
             <a
-              href={`mailto:${profile.email}`}
+              href="#contact"
               className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-sm font-medium text-emerald-300 transition-colors hover:bg-emerald-400/20"
             >
-              Hire me
+              Contact
             </a>
           </li>
         </ul>
@@ -84,11 +83,11 @@ export default function Nav() {
             ))}
             <li>
               <a
-                href={`mailto:${profile.email}`}
+                href="#contact"
                 onClick={() => setOpen(false)}
                 className="mt-2 mb-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-medium text-emerald-300"
               >
-                Hire me
+                Contact
               </a>
             </li>
           </ul>
