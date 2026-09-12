@@ -132,6 +132,25 @@ export default async function ProjectPage({
         )}
       </div>
 
+      {/* detailed tech stack breakdown */}
+      {project.techStack?.length ? (
+        <div className="mt-16 max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent">/ tech stack</p>
+          <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">Under the hood</h2>
+          <ul className="mt-6 space-y-4">
+            {project.techStack.map((item) => (
+              <li key={item.label} className="flex gap-3 text-sm leading-relaxed text-zinc-400 sm:text-base">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                <span>
+                  <span className="font-semibold text-zinc-100">{item.label} — </span>
+                  {item.detail}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
       {/* workflow / how it works */}
       {project.workflow?.length ? (
         <div className="mt-16 max-w-3xl">
