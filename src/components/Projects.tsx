@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { projects, type Project } from "@/data/portfolio";
+import ProjectGallery from "./ProjectGallery";
 
 function LinkIcon({ type }: { type: Project["links"][number]["type"] }) {
   if (type === "code") {
@@ -28,17 +30,33 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     <article className="grid gap-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6 md:grid-cols-2 md:items-center md:gap-8 md:p-8">
       {/* media panel */}
       <div className={reversed ? "md:order-2" : ""}>
-        <div
-          className={`relative flex aspect-video items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${project.accent}`}
-        >
-          <div className="bg-grid absolute inset-0 opacity-40" />
-          <span className="relative font-mono text-xs text-zinc-500">
-            screenshot / demo →
-          </span>
-          <span className="absolute right-3 top-3 rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[10px] font-medium text-zinc-300 backdrop-blur">
-            {project.status}
-          </span>
-        </div>
+        {project.images?.length ? (
+          <ProjectGallery images={project.images} status={project.status} />
+        ) : (
+          <div
+            className={`relative flex aspect-video items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${project.accent}`}
+          >
+            {project.image ? (
+              <Image
+                src={project.image}
+                alt={`${project.title} screenshot`}
+                fill
+                className="object-cover"
+                sizes="(min-width: 768px) 50vw, 100vw"
+              />
+            ) : (
+              <>
+                <div className="bg-grid absolute inset-0 opacity-40" />
+                <span className="relative font-mono text-xs text-zinc-500">
+                  screenshot / demo →
+                </span>
+              </>
+            )}
+            <span className="absolute right-3 top-3 rounded-full border border-white/10 bg-black/40 px-2.5 py-1 text-[10px] font-medium text-zinc-300 backdrop-blur">
+              {project.status}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* text */}

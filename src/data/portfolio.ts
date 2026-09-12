@@ -93,27 +93,77 @@ export type Project = {
   tech: string[];
   links: { label: string; href: string; type: "live" | "code" | "demo" }[];
   accent: string; // tailwind gradient classes for the mock panel
+  image?: string; // optional single screenshot, public/projects/<slug>/<file>
+  images?: { src: string; caption: string }[]; // optional gallery, overrides `image`
 };
 
 export const projects: Project[] = [
   {
-    slug: "property-saas",
-    title: "Property Management SaaS",
-    category: "Automation Backend · AI Agents",
+    slug: "nestly",
+    title: "Nestly — SaaS Property Management System",
+    category: "Property-Tech SaaS · Automation Backend",
     status: "Live in production",
     blurb:
-      "Automates an entire short-term-rental business — bookings, dynamic pricing, VAT invoicing, guest messaging, and smart-lock access — across 15+ webhook scenarios.",
+      "A full property-management SaaS — owner dashboard, cleaner app, and public site — where Airtable, Make.com, Beds24, Stripe, Seam, and OpenAI run every booking, cleaning, and invoice automatically.",
     highlights: [
       "Booking → door PIN → guest message → PDF invoice → email, with zero manual steps",
       "GPT agents parse guest messages and route by intent & severity",
       "Fault-tolerant Beds24 ⇄ Airtable ⇄ Stripe sync with retry + token refresh",
     ],
-    tech: ["Python", "FastAPI", "GPT", "Airtable", "Beds24", "Stripe", "Seam", "n8n"],
+    tech: [
+      "TanStack Start",
+      "TypeScript",
+      "Airtable",
+      "Make.com",
+      "Beds24",
+      "Stripe",
+      "Seam",
+      "OpenAI",
+      "PriceLabs",
+    ],
     links: [
       { label: "Demo", href: "#", type: "demo" },
       { label: "Code", href: "https://github.com/nageen24", type: "code" },
     ],
     accent: "from-emerald-500/20 to-teal-500/10",
+    images: [
+      {
+        src: "/projects/nestly/01-automations-library.jpeg",
+        caption: "Make.com — the automation library running the business",
+      },
+      {
+        src: "/projects/nestly/02-automation-stripe-charge.png",
+        caption: "Make.com — Stripe auto-charge on day 4 of the billing cycle",
+      },
+      {
+        src: "/projects/nestly/03-dashboard-overview.png",
+        caption: "Owner dashboard — live revenue, occupancy & channel mix",
+      },
+      {
+        src: "/projects/nestly/04-properties.png",
+        caption: "Properties — listings synced from Beds24",
+      },
+      {
+        src: "/projects/nestly/05-cleaning-kanban.png",
+        caption: "Cleaning schedule — kanban by status with live alerts",
+      },
+      {
+        src: "/projects/nestly/06-invoices.png",
+        caption: "Invoices — sequential VAT invoicing (PVM Sąskaita-Faktūra)",
+      },
+      {
+        src: "/projects/nestly/07-cleaner-today.png",
+        caption: "Cleaner app — today's job with live smart-lock door code",
+      },
+      {
+        src: "/projects/nestly/08-automation-offboarding.jpeg",
+        caption: "Make.com — 30-day owner offboarding & final invoice flow",
+      },
+      {
+        src: "/projects/nestly/09-automations-library-2.jpeg",
+        caption: "Make.com — pricing, finance & webhook scenarios",
+      },
+    ],
   },
   {
     slug: "meeting-to-action",
