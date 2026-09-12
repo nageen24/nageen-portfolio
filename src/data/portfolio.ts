@@ -254,12 +254,13 @@ export const projects: Project[] = [
     slug: "trello-meeting-automation",
     title: "Meeting & Task Automation Suite",
     category: "AI Agents · n8n Automation · Trello, Asana & Monday.com",
-    status: "Self-hosted · n8n",
+    status: "Self-Hosted on a VPS",
     blurb:
       "A team of AI Agents, powered by the Anthropic API and orchestrated in n8n, that read meeting transcripts, inbound email, and Slack chat — then turn them into structured project-board tasks. Built for Trello, and just as portable to Asana or Monday.com.",
     myRole:
-      "Designed and built all 5 workflows end-to-end — the Claude agent prompts and structured-output schemas, the n8n orchestration logic, and the direct Trello/Gmail/Drive REST tool layer each agent calls.",
+      "Designed and built all 5 workflows end-to-end — the Claude agent prompts and structured-output schemas, the n8n orchestration logic, and the direct Trello/Gmail/Drive REST tool layer each agent calls. Also provisioned the infrastructure itself: n8n self-hosted on a VPS, reachable over a domain-mapped HTTPS/TLS endpoint so the Read.ai webhook, Gmail trigger, and Slack Events subscription each have a secure, public target to call.",
     highlights: [
+      "Self-hosted n8n on a VPS behind a domain-mapped HTTPS/TLS endpoint — public webhooks (Read.ai, Gmail, Slack Events) reach it securely, not the n8n cloud sandbox",
       "Meeting transcript → Claude JSON summary → full Trello board, or AI-matched straight into an existing one",
       "Same pipeline, plus a Claude agent that drafts follow-up emails straight into Gmail as drafts",
       "Gmail inbox watched end-to-end: AI classifies the email, resolves the right project, drafts a reply",
@@ -319,6 +320,8 @@ export const projects: Project[] = [
       "Anthropic API",
       "LangChain",
       "n8n",
+      "Self-Hosted VPS",
+      "HTTPS/TLS",
       "Trello REST API",
       "Slack API",
       "Gmail API",
