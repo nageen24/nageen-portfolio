@@ -327,7 +327,6 @@ export const projects: Project[] = [
       "Asana API",
       "Monday.com API",
     ],
-    codeUrl: "https://github.com/nageen24/trello-meeting-trello-automation-n8n",
     accent: "from-violet-500/20 to-indigo-500/10",
     images: [
       {
