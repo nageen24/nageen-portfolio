@@ -258,7 +258,7 @@ export const projects: Project[] = [
     blurb:
       "Five AI Agents, orchestrated in n8n on a self-hosted VPS — reading meeting transcripts, inbound email, and Slack chat — that create, match, and manage tasks directly on Trello, Asana, or Monday.com boards.",
     myRole:
-      "Designed and built all 5 workflows end-to-end — the Claude agent prompts and structured-output schemas, the n8n orchestration logic, and the direct Trello/Gmail/Drive REST tool layer each agent calls. Also provisioned the infrastructure itself: n8n self-hosted on a VPS, reachable over a domain-mapped HTTPS/TLS endpoint so the Read.ai webhook, Gmail trigger, and Slack Events subscription each have a secure, public target to call.",
+      "Designed and built all 5 workflows end-to-end — the Claude agent prompts, n8n orchestration, and the Trello/Gmail/Drive REST tool layer each agent calls. Also self-hosted n8n on a VPS behind a domain-mapped HTTPS/TLS endpoint for the webhooks.",
     highlights: [
       "Meeting transcripts become a full Trello board (or get matched into an existing one), with follow-up emails drafted straight into Gmail",
       "Every inbound email is classified, matched to the right project, and answered with a context-aware drafted reply",
