@@ -437,18 +437,228 @@ export const projects: Project[] = [
   },
   {
     slug: "meeting-notetaker",
-    title: "AI Meeting Notetaker",
-    category: "Cross-Platform Desktop App",
-    status: "Electron · Desktop",
+    title: "Meeting Transcriber — Granola-Style Desktop App",
+    category: "Desktop Automation · Electron · Local-First AI",
+    status: "Windows · macOS · Linux",
     blurb:
-      "Auto-detects live Zoom/Teams/Meet calls, records system + mic audio, and produces diarized transcripts and structured summaries.",
+      "A Granola-style desktop app that auto-detects when a meeting starts, records it locally, and turns the audio into a transcript and structured AI summary — then auto-files it into a project and pushes the notes out by webhook.",
+    myRole:
+      "Built solo end-to-end: every isolated module (meeting detection, audio capture/storage, Groq transcription + WASM fallback, AI summary, project classifier, SQLite, Google Drive sync, webhook sender), plus the full Electron main/preload/renderer app, IPC bridge, and React UI.",
     highlights: [
-      "Whisper ASR via cloud Groq + on-device WASM; Llama-3.3-70B summaries",
-      "SQLite storage with Google Drive sync",
-      "Webhook output into downstream n8n automations",
+      "Zero-action meeting detection — polls running processes and, on Windows, the same mic-privacy registry key Windows itself uses for its tray icon",
+      "Groq Whisper transcribes a 1-hour meeting in ~25s; a fully offline on-device WASM fallback keeps it working with no API key at all",
+      "An LLM auto-clusters every new meeting into the right project from its own summary, then pushes finished notes out by signed webhook",
     ],
-    tech: ["Electron", "React", "Whisper", "Llama", "Groq", "SQLite"],
+    workflow: [
+      {
+        title: "1. Detecting a meeting",
+        detail: [
+          "A process-list watcher polls for known meeting apps (Zoom, Teams, Meet via Chrome, Slack, Discord) every ~4s; on Windows, a second watcher polls the CapabilityAccessManager registry key the OS itself uses to light up the mic-privacy indicator.",
+          "Both signals debounce across 2 consecutive polls before firing, so a process restart doesn't cause a false start/stop flap.",
+          "A floating banner window pops up to confirm or auto-start the recording.",
+        ],
+      },
+      {
+        title: "2. Local audio capture",
+        detail:
+          "The renderer's MediaRecorder captures mic and system-loopback audio simultaneously, mixes them, and streams ~1-second chunks to the main process, which appends them to disk as WebM/Opus through a serialized file writer — memory stays bounded no matter how long the meeting runs.",
+      },
+      {
+        title: "3. Transcription",
+        detail: [
+          "Groq Whisper (whisper-large-v3-turbo) transcribes the finished recording via Groq's OpenAI-compatible /audio/transcriptions endpoint — a 1-hour meeting comes back in ~25 seconds.",
+          "With no Groq key configured, a fully offline WASM Whisper (@huggingface/transformers, model cached in IndexedDB) transcribes on-device instead, using a silence-gap heuristic (>1.2s) to estimate speaker turns.",
+        ],
+      },
+      {
+        title: "4. AI summary + auto-filing",
+        detail: [
+          "A forced-JSON prompt to Groq's llama-3.3-70b-versatile turns the transcript into a structured summary — key points, action items with resolved owners, decisions, and open questions — reading between speaker handoffs to assign credit correctly.",
+          "A second classifier call reads that summary against the user's existing projects and either files the meeting into one or creates a new project — no manual folder-sorting.",
+          "Everything lands in a local, versioned SQLite schema (better-sqlite3) — no server, no account required.",
+        ],
+      },
+      {
+        title: "5. Notes, sync, and webhook out",
+        detail: [
+          "A TipTap rich-text editor lets the user refine the summary and notes per meeting.",
+          "Optional Google Drive sync uses a Desktop OAuth loopback flow — each user's data lands only in their own hidden appDataFolder, so the app has no central store of anyone's meetings.",
+          "A webhook sender POSTs the finished summary as HMAC-SHA256-signed JSON, with exponential-backoff retries, to any URL — e.g. an n8n workflow that creates the matching Trello or Asana cards.",
+        ],
+      },
+    ],
+    techStack: [
+      {
+        label: "Desktop shell",
+        detail: "Electron 33, built with electron-vite + Vite 5, packaged via electron-builder (NSIS / DMG / AppImage).",
+      },
+      {
+        label: "Process model",
+        detail: "Main (Node) owns recording, detection, DB, Groq, Drive, and webhooks; preload bridges IPC; React renders the UI plus a separate floating-banner window.",
+      },
+      {
+        label: "Meeting detection",
+        detail: "Process-list polling (Zoom/Teams/Meet/Slack/Discord) plus, on Windows, the OS's own mic-privacy registry key — both debounced to avoid flapping.",
+      },
+      {
+        label: "Audio capture",
+        detail: "MediaRecorder mixes mic + system-loopback into WebM/Opus, streamed in ~1s chunks to a serialized disk writer.",
+      },
+      {
+        label: "Transcription",
+        detail: "Groq Whisper (whisper-large-v3-turbo) by default; an on-device WASM Whisper fallback keeps it fully offline with no API key.",
+      },
+      {
+        label: "AI summary & classification",
+        detail: "Groq llama-3.3-70b-versatile, forced-JSON prompts for both the structured summary and the auto-project-filing call.",
+      },
+      {
+        label: "Storage",
+        detail: "better-sqlite3 — embedded, native, versioned schema migrations, zero server.",
+      },
+      {
+        label: "Sync & webhook out",
+        detail: "Per-user Google Drive appDataFolder via Desktop OAuth; HMAC-signed webhook POSTs with retry/backoff to any URL.",
+      },
+      {
+        label: "Editor & UI",
+        detail: "TipTap 3 (ProseMirror) notes editor, Tailwind CSS, system tray, and a floating detection banner.",
+      },
+      {
+        label: "Secrets & updates",
+        detail: "Groq key encrypted via Electron safeStorage (DPAPI / Keychain / libsecret); electron-updater ships updates from GitHub Releases.",
+      },
+    ],
+    tech: [
+      "Electron",
+      "React",
+      "TypeScript",
+      "Groq Whisper",
+      "Groq (Llama 3.3 70B)",
+      "better-sqlite3",
+      "Google Drive API",
+      "TipTap",
+      "electron-builder",
+    ],
     accent: "from-amber-500/20 to-orange-500/10",
+    images: [
+      {
+        src: "/projects/meeting-notetaker/01-home.png",
+        caption: "Home — recent recordings, grouped by day",
+      },
+      {
+        src: "/projects/meeting-notetaker/02-meeting-detail.png",
+        caption: "Meeting detail — AI summary, action items with owners, decisions, open questions",
+      },
+      {
+        src: "/projects/meeting-notetaker/03-followup-projects.png",
+        caption: "Meetings Follow-up — meetings auto-clustered into projects by an LLM",
+      },
+      {
+        src: "/projects/meeting-notetaker/04-settings.png",
+        caption: "Settings — auto-record, webhooks, Groq key, all stored locally",
+      },
+    ],
+  },
+  {
+    slug: "family-office-intelligence",
+    title: "Family Office Intelligence — AI Data Pipeline + Micro-RAG",
+    category: "AI Data Pipeline · Micro-RAG Search · FastAPI",
+    status: "Live Demo · Deployed on Vercel",
+    blurb:
+      "An AI pipeline that discovers, enriches, and validates family-office records from public filings, then serves them through a Micro-RAG search app — every firm gated behind a verbatim-quote proof check, every answer checked by a second LLM before a user sees it.",
+    myRole:
+      "Built solo end-to-end: the multi-source discovery + enrichment pipeline, the proof/validation gates and escalation queue, the idempotent GitHub Actions scheduler with committed replay state, and the Micro-RAG (hybrid retrieval + two-LLM grounding control) deployed as a FastAPI/Vercel search app.",
+    highlights: [
+      "A verbatim-quote gate — an LLM proposes a proof sentence, code then verifies it literally appears on the firm's own page — so a firm can't qualify by name, filing class, or press mention alone",
+      "Two-LLM grounding control on every answer: one model drafts from retrieved records only, an independent reviewer approves, refines, or declines it before it ever reaches the user",
+      "An idempotent, restart-safe scheduler — a stable firm key means a crashed or rerun batch never reprocesses a firm twice, with every run replayable from committed JSONL state",
+    ],
+    workflow: [
+      {
+        title: "1. Multi-source discovery",
+        detail:
+          "Six free sources feed one deduped candidate pool — SEC CIK registry, SEC EDGAR full-text search, SEC Form ADV roster, Wikidata SPARQL (instance-of \"family office\"), Google News RSS, and ProPublica Form 990 — interleaved so no single source (SEC filings) dominates the mix.",
+      },
+      {
+        title: "2. Proof, not vibes",
+        detail:
+          "Before a firm counts, an LLM must locate and code must confirm a verbatim sentence — from the firm's own site or filing — establishing it actually functions as a family office; every high-value cell (email, phone, AUM, website) then carries its own source, method, confidence, and fact/inference/speculation label, verified by MX/SMTP checks and direct-fetch name matching rather than trusted on sight.",
+      },
+      {
+        title: "3. Honest gaps over guessed values",
+        detail:
+          "A cell that can't be verified — an email an SMTP probe can't confirm, a firm type the text can't disambiguate — ships blank and labelled \"could not verify\" instead of a guessed placeholder; ambiguous records are routed to an escalation queue for a human decision instead of self-resolved.",
+      },
+      {
+        title: "4. Idempotent, scheduled pipeline",
+        detail:
+          "A GitHub Actions cron job climbs the candidate pool in restart-safe batches keyed by a stable firm key, committing state after every batch — a crash loses at most the in-flight batch, and an already-attempted firm is never reprocessed on rerun.",
+      },
+      {
+        title: "5. Micro-RAG ingest",
+        detail:
+          "Each qualified record becomes one self-contained blurb carrying every high-value cell, embedded with model2vec's keyless, pure-NumPy static embeddings into an in-memory Qdrant store rebuilt in ~1s at cold start — chosen after torch/onnxruntime/fastembed all failed to load on the target runtime.",
+      },
+      {
+        title: "6. Hybrid retrieval",
+        detail:
+          "A structured pre-filter (firm type, has-email) combines with semantic search, named-firm injection (so a proper noun a weak static embedding would miss still reaches the model), and a minimum-similarity score gate that declines rather than answer from weak matches; list/rank/count questions retrieve the whole corpus instead of a top-k slice.",
+      },
+      {
+        title: "7. Two-LLM grounding control",
+        detail:
+          "An answerer model drafts strictly from retrieved records; an independent reviewer model audits that draft against the same records and returns approve / refine / decline — nothing reaches the user unchecked. Deterministic questions (counts, type lists) skip the LLM path entirely, so they can't hallucinate and can't time out.",
+      },
+    ],
+    techStack: [
+      {
+        label: "Discovery",
+        detail: "SEC CIK registry, SEC EDGAR full-text, SEC Form ADV roster, Wikidata SPARQL, Google News RSS, ProPublica Form 990 — six free sources, deduped and interleaved into one pool.",
+      },
+      {
+        label: "Enrichment & proof",
+        detail: "SEC 13F primary_doc.xml + SEC submissions JSON for principal/phone/address; Serper + real-browser render fallback for website discovery; MX + SMTP RCPT probes before an email is marked verified.",
+      },
+      {
+        label: "Validation & escalation",
+        detail: "Firm-level qualification gate plus per-cell source/method/confidence/epistemic labels; ambiguous records open a human escalation case instead of being auto-resolved.",
+      },
+      {
+        label: "Orchestration & state",
+        detail: "GitHub Actions scheduled cron running an idempotent batch \"climb\" keyed by a stable firm key; committed JSON/JSONL state gives restart-safety and full run replay.",
+      },
+      {
+        label: "Retrieval",
+        detail: "model2vec (potion-base-8M) static embeddings in an in-memory Qdrant store; structured pre-filter + semantic search + named-firm injection + similarity score gate.",
+      },
+      {
+        label: "Grounding control",
+        detail: "Two-LLM answerer/reviewer split (draft → independent audit → approve/refine/decline); deterministic paths for counts, lists, and rankings.",
+      },
+      {
+        label: "LLM providers",
+        detail: "Groq on two independent keys with automatic failover, Cerebras and Gemini as backups — every provider free-tier, $0 cost by construction.",
+      },
+      {
+        label: "Backend & deploy",
+        detail: "FastAPI backend deployed as a Vercel serverless function (api/index.py); a vanilla-JS frontend with separate Search and Agent modes.",
+      },
+    ],
+    tech: [
+      "Python",
+      "FastAPI",
+      "Qdrant",
+      "model2vec",
+      "Groq API (Llama 3.3 70B)",
+      "SEC EDGAR / 13F / Form ADV",
+      "Wikidata SPARQL",
+      "GitHub Actions",
+      "Vercel Serverless",
+      "Vanilla JS",
+    ],
+    demoUrl: "https://family-office-intelligence.vercel.app/",
+    accent: "from-emerald-500/20 to-teal-500/10",
   },
 ];
 
