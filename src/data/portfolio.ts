@@ -346,6 +346,14 @@ export const projects: Project[] = [
         src: "/projects/trello-meeting-automation/04-trello-slack-chatbot.jpeg",
         caption: "n8n — the conversational Slack ⇄ Trello agent with 12 REST tools",
       },
+      {
+        src: "/projects/trello-meeting-automation/05-email-agent-no-match-slack.jpeg",
+        caption: "Slack — the email-reply agent's fallback notice when no Trello project matches",
+      },
+      {
+        src: "/projects/trello-meeting-automation/06-trello-board-from-meeting.jpeg",
+        caption: "Trello — a board and topic lists created straight from a meeting transcript",
+      },
     ],
   },
   {
@@ -354,101 +362,61 @@ export const projects: Project[] = [
     category: "Embeddable AI Widget · RAG Backend · FastAPI",
     status: "Live on Vercel",
     blurb:
-      "An embeddable support-chat widget that answers strictly from a company's own documents — FastAPI + BM25 retrieval + Groq's GPT-OSS 20B behind a 4-way intent router and a strict, word-limited brand-voice persona, deployed serverless on Vercel.",
+      "An embeddable support-chat widget that answers strictly from a company's own documents — FastAPI, BM25 retrieval, and Groq's GPT-OSS 20B behind a strict, word-capped brand-voice persona.",
     myRole:
-      "Built solo end-to-end: scraped the client's site into a structured knowledge base, wrote the ingestion/chunking pipeline, the BM25 retrieval + intent-routing RAG core with a swappable LLM provider (Groq / Claude / Ollama), the embeddable vanilla-JS widget, and the Mangum/Vercel serverless deployment.",
+      "Built solo end-to-end: scraped the client's site into a structured knowledge base, wrote the ingestion/chunking pipeline, the BM25 retrieval + intent-routing RAG core with a swappable LLM provider (Groq / Ollama), the embeddable vanilla-JS widget, and the Mangum/Vercel serverless deployment.",
     highlights: [
-      "4-way intent router (greeting / emotional / conversational / specific) — RAG retrieval only fires for real company questions, so small talk never touches the knowledge base",
-      "Strict 2-sentence brand-voice persona (25-word answer + 15-word follow-up) enforced twice — in the prompt, and again in post-processing that trims and re-punctuates the model's raw output",
-      "BM25 (rank-bm25) keyword retrieval over chunked .docx/.pdf docs — no embeddings or vector DB, and the LLM provider swaps between Groq, Claude, and local Ollama via one config flag",
+      "4-way intent router — RAG retrieval only fires for real company questions, never for small talk",
+      "Strict 2-sentence, word-capped brand-voice persona enforced twice — in the prompt, and again in post-processing",
+      "BM25 keyword retrieval over chunked docs — no embeddings, no vector DB",
     ],
     techStack: [
       {
-        label: "Backend framework",
-        detail:
-          "FastAPI (Python) — a small app with three routes: POST /chat, GET /health, POST /ingest.",
+        label: "Backend",
+        detail: "FastAPI (Python) — three routes: POST /chat, GET /health, POST /ingest.",
       },
       {
         label: "LLM / inference",
         detail:
-          "Groq API running openai/gpt-oss-20b for both intent classification and answer generation — chosen for near-instant inference. Called with reasoning_effort=\"low\" and max_completion_tokens (not the legacy max_tokens alias) sized with real headroom, since gpt-oss's hidden reasoning tokens are drawn from the same budget as the visible answer and can silently empty it if under-sized. The provider is one config flag (LLM_PROVIDER) and swaps to Anthropic's Claude API (claude-haiku-4-5) or a local Ollama model (llama3.2:3b) with no other code changes.",
+          "Groq API running openai/gpt-oss-20b, reasoning_effort=\"low\" with generous max_completion_tokens so hidden reasoning tokens never empty the response.",
+      },
+      {
+        label: "Intent routing",
+        detail:
+          "One classification call sorts each message first — only a real company question ever triggers retrieval.",
       },
       {
         label: "Retrieval — no embeddings, no vector DB",
-        detail:
-          "BM25Okapi from the rank-bm25 library does pure lexical/keyword scoring — no embedding model, no vector database (no Pinecone, Chroma, FAISS, or pgvector). The 'index' is just a JSON array of text chunks, re-scored against the query on every request.",
+        detail: "BM25Okapi (rank-bm25) lexical scoring over chunked text — chunks.json is the entire index.",
       },
       {
-        label: "Document parsing",
-        detail:
-          "python-docx extracts text from .docx company documents, pypdf handles .pdf — both read into one combined text blob before chunking.",
+        label: "Ingestion",
+        detail: "python-docx / pypdf extract text; a custom chunker splits it into 400-char windows, 80-char overlap.",
       },
       {
-        label: "Chunking & storage",
-        detail:
-          "A hand-rolled chunker (backend/ingest.py) splits the combined text into 400-character windows with 80-character overlap and writes them to chunks.json — the entire knowledge base is that one flat file, no database.",
+        label: "Response shaping",
+        detail: "A strict 2-sentence brand-voice persona enforced in the prompt, then hard-trimmed again in post-processing.",
       },
       {
-        label: "Prompt & session layer",
-        detail:
-          "Hand-written system prompts per intent (RAG / greeting / conversational / emotional), plus a local keyword check that catches farewells before they ever reach the LLM. There's no server-side session store — the client resends the last 6–10 turns of chat history with every request.",
+        label: "Frontend",
+        detail: "One static HTML file, vanilla JS, Tailwind via CDN — no framework, no build step.",
       },
       {
-        label: "Frontend widget",
-        detail:
-          "One static HTML file, vanilla JavaScript, Tailwind CSS via CDN — no framework, no bundler, no build step. Talks to the API with the browser's native fetch().",
-      },
-      {
-        label: "Knowledge-base ingestion tooling",
-        detail:
-          "A one-off scraper script (requests + BeautifulSoup + lxml) pulls the client's live website and rebuilds it into a structured .docx for the knowledge base.",
-      },
-      {
-        label: "Deployment / runtime",
-        detail:
-          "Vercel serverless functions — api/index.py wraps the FastAPI app with Mangum (an ASGI-to-Lambda adapter) so it runs on Vercel's Python runtime; vercel.json routes /chat, /health, and /ingest to that function and everything else to the static frontend build.",
+        label: "Deployment",
+        detail: "Vercel serverless — api/index.py wraps FastAPI with Mangum; vercel.json routes /chat, /health, /ingest to it.",
       },
       {
         label: "Config & CORS",
-        detail:
-          "python-dotenv loads GROQ_API_KEY / ANTHROPIC_API_KEY from .env locally (Vercel env vars in production); CORS is wide open (allow_origins=[\"*\"]) since the widget is designed to be embedded on any client's domain.",
+        detail: "python-dotenv loads GROQ_API_KEY from env; CORS wide open so it can embed on any client domain.",
       },
     ],
     workflow: [
       {
-        title: "1. Knowledge base ingestion",
+        title: "Ask → retrieve → answer",
         detail: [
-          "scrape_to_doc.py pulls the client's live site with requests + BeautifulSoup and rebuilds it into a structured Word document (services, pricing, about, FAQs).",
-          "ingest.py loads every .docx/.pdf in data/ (python-docx / pypdf), concatenates the extracted text, and splits it into 400-character chunks with an 80-character overlap.",
-          "Chunks are written to chunks.json — the entire retrieval index, rebuildable on demand via POST /ingest?force=true.",
-        ],
-      },
-      {
-        title: "2. Message intent routing",
-        detail: [
-          "Farewells are caught locally by a keyword match — no LLM call spent on 'bye' or 'thanks, that's all'.",
-          "Everything else goes through a single low-reasoning-effort Groq/Claude classification call that labels the message greeting, emotional, conversational, or specific — each intent gets its own system prompt, token budget, and conversation-history window.",
-          "Only 'specific' (an actual question about the company) triggers retrieval — greetings, small talk, and emotional messages are answered directly, keeping cost and latency down.",
-        ],
-      },
-      {
-        title: "3. Grounded retrieval + generation",
-        detail: [
-          "For a 'specific' question, BM25Okapi scores every chunk against the tokenized query and the top-8 matches are stitched into a context block.",
-          "The context, the last 6 turns of history, and the question go to the LLM under a system prompt that forces first-person voice, bans self-introduction, and hard-caps the reply at exactly two sentences.",
-          "No matching chunks or an off-topic question triggers the prompt's built-in fallback — a fixed, professional redirect to the company's contact email instead of a guess.",
-        ],
-      },
-      {
-        title: "4. Response shaping",
-        detail:
-          "enforce_word_limits() re-parses the model's raw text into two sentences and hard-trims each to its word cap (25 / 15), re-adding terminal punctuation — so brand voice holds even when the LLM overruns its instructions.",
-      },
-      {
-        title: "5. Embeddable widget + serverless deploy",
-        detail: [
-          "The whole client is one static HTML file — a floating toggle button, animated chat window, typing indicator, suggested-question chips, and an unread badge — talking to the API with fetch and replaying the last 10 messages as context.",
-          "api/index.py wraps the same FastAPI app with Mangum for Vercel's Python runtime; vercel.json routes /chat, /health, and /ingest to that function and everything else to the static /frontend build — one repo, one push-to-deploy.",
+          "You ask a question in the chat widget.",
+          "BM25 retrieves the most relevant chunks from the company's own docs.",
+          "gpt-oss-20b answers strictly from that context — 2 sentences, grounded, no hallucination.",
         ],
       },
     ],
@@ -456,7 +424,6 @@ export const projects: Project[] = [
       "Python",
       "FastAPI",
       "Groq API (GPT-OSS 20B)",
-      "Claude API",
       "BM25 (rank-bm25)",
       "python-docx / pypdf",
       "Vercel Serverless (Mangum)",
@@ -464,19 +431,10 @@ export const projects: Project[] = [
       "Tailwind CSS",
     ],
     demoUrl: "https://rag-chatbot-pink-psi.vercel.app/",
-    codeUrl: "https://github.com/nageen24/widget-rag-chatbot",
     accent: "from-sky-500/20 to-cyan-500/10",
     images: [
       {
-        src: "/projects/rag-chatbot/01-widget-closed.png",
-        caption: "Embedded on the client site — a single floating launcher button",
-      },
-      {
-        src: "/projects/rag-chatbot/02-widget-open.png",
-        caption: "Chat window open — greeting state with topic-suggestion chips",
-      },
-      {
-        src: "/projects/rag-chatbot/03-live-chat.png",
+        src: "/projects/rag-chatbot/01-live-chat.png",
         caption: "A real grounded answer — retrieved from company docs, word-limit persona intact",
       },
     ],
