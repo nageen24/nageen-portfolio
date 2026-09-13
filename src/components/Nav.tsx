@@ -12,9 +12,9 @@ export default function Nav() {
         <Link
           href="/#top"
           aria-label="Home"
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-xs font-bold text-accent-light transition-colors hover:bg-white/10"
+          className="group flex h-8 w-8 shrink-0 items-center justify-center"
         >
-          N
+          <span className="pulse-dot h-3 w-3 rounded-full bg-gradient-to-br from-accent-light to-accent shadow-[0_0_10px_2px_rgba(220,150,90,0.55)] transition-transform group-hover:scale-125" />
         </Link>
 
         {links.map((l) => (
