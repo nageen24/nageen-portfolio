@@ -45,7 +45,8 @@ export const skillGroups = [
   {
     title: "Backend & APIs",
     items: [
-      "Python (FastAPI)",
+      "Python",
+      "FastAPI",
       "Node.js",
       "TypeScript",
       "REST API design",

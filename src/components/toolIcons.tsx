@@ -69,3 +69,15 @@ export const tools: Tool[] = [
   { label: "Stripe", icon: SiStripe, color: "#635BFF" },
   { label: "Slack", abbr: "Sl" },
 ];
+
+// Looks up a tool by exact label first ("GitHub"), then by substring
+// for compound skill labels ("Git / GitHub", "Serverless (Vercel, Mangum)").
+// Used by the Skills section to icon-match skillGroups items without
+// duplicating this data there.
+export function findTool(label: string): Tool | undefined {
+  const needle = label.toLowerCase();
+  return (
+    tools.find((t) => t.label.toLowerCase() === needle) ??
+    tools.find((t) => needle.includes(t.label.toLowerCase()))
+  );
+}
