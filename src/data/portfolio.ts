@@ -418,7 +418,7 @@ export const projects: Project[] = [
   {
     slug: "meeting-notetaker",
     title: "Meeting Transcriber — Auto-Record & Summarize",
-    category: "Desktop Automation · Electron · Local-First AI",
+    category: "Desktop App Automation · Electron · Local-First AI",
     status: "Windows · macOS · Linux",
     blurb:
       "A cross-platform desktop app that auto-detects a meeting and records it locally with zero manual action — on Windows, via the same mic-privacy signal Windows itself uses. Groq Whisper transcribes a 1-hour meeting in ~25s (with a fully offline fallback), and an LLM summarizes it and auto-files it into the right project. Finished notes push out to your automation stack by signed webhook.",
