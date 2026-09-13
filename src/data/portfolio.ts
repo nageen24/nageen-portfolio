@@ -70,6 +70,7 @@ export type Project = {
   title: string;
   category: string;
   status: string;
+  country?: string; // client/market country, shown as a small tag on the card + detail page
   blurb: string;
   myRole?: string; // what I personally built, shown on the detail page
   highlights: string[];
@@ -89,6 +90,7 @@ export const projects: Project[] = [
     title: "Nestly — SaaS Property Management System",
     category: "Property-Tech SaaS · Automation Backend",
     status: "Live in production",
+    country: "Lithuania",
     blurb:
       "A full property-management SaaS — owner dashboard, cleaner app, and public site — where Airtable, Make.com, Beds24, Stripe, Seam, and OpenAI run every booking, cleaning, and invoice automatically.",
     myRole:
@@ -238,6 +240,7 @@ export const projects: Project[] = [
     title: "Meeting & Task Automation Suite",
     category: "AI Agents · n8n Automation · Trello, Asana & Monday.com",
     status: "Self-Hosted on a VPS",
+    country: "Malaysia",
     blurb:
       "Five AI Agents, orchestrated in n8n on a self-hosted VPS — reading meeting transcripts, inbound email, and Slack chat — that create, match, and manage tasks directly on Trello, Asana, or Monday.com boards.",
     myRole:
@@ -343,6 +346,7 @@ export const projects: Project[] = [
     title: "RAG Support Widget — Grounded Q&A",
     category: "Embeddable AI Widget · RAG Backend · FastAPI",
     status: "In Production",
+    country: "USA",
     blurb:
       "An embeddable support-chat widget that answers strictly from a company's own documents. FastAPI, BM25 keyword retrieval (no embeddings, no vector DB), and Groq's GPT-OSS 20B behind a 4-way intent router. A strict, word-capped brand-voice persona is enforced twice — in the prompt, and again in post-processing.",
     myRole:
@@ -422,6 +426,7 @@ export const projects: Project[] = [
     title: "Meeting Transcriber — Auto-Record & Summarize",
     category: "Desktop App Automation · Electron · Local-First AI",
     status: "Windows · macOS · Linux",
+    country: "Malaysia",
     blurb:
       "A cross-platform desktop app that auto-detects a meeting and records it locally with zero manual action — on Windows, via the same mic-privacy signal Windows itself uses. Groq Whisper transcribes a 1-hour meeting in ~25s (with a fully offline fallback), and an LLM summarizes it and auto-files it into the right project. Finished notes push out to your automation stack by signed webhook.",
     myRole:
@@ -542,6 +547,7 @@ export const projects: Project[] = [
     title: "Family Office Intelligence — AI Data Pipeline + Micro-RAG",
     category: "Agentic AI · Micro-RAG Search · FastAPI",
     status: "Live Demo · Deployed on Vercel",
+    country: "USA",
     blurb:
       "An agentic AI pipeline — a drafter-and-reviewer LLM pair checking every answer — that discovers, enriches, and proof-gates family-office records from public filings, then serves them through an idempotent, replayable Micro-RAG search app.",
     myRole:
@@ -653,6 +659,7 @@ export const projects: Project[] = [
     title: "Automated Scrape Pipeline — Live Local Business Directory",
     category: "Verified Local Directory · Automated Data Pipeline · MongoDB",
     status: "Private Beta",
+    country: "USA",
     blurb:
       "A deterministic, zero-hallucination directory of verified textured-hair practitioners across four cities — an Apify scraping pipeline merges listings into MongoDB, then a rule-based classifier and a confidence-decay engine score how trustworthy each one still is.",
     myRole:

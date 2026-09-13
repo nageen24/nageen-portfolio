@@ -76,7 +76,18 @@ export default async function ProjectPage({
 
       {/* header */}
       <div className="mt-10 max-w-3xl">
-        <p className="font-mono text-xs uppercase tracking-widest text-accent">{project.category}</p>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className="font-mono text-xs uppercase tracking-widest text-accent">{project.category}</p>
+          {project.country && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-xs font-medium text-zinc-400">
+              <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="12" cy="9.5" r="2.3" />
+              </svg>
+              {project.country}
+            </span>
+          )}
+        </div>
         <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">{project.title}</h1>
         <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">{project.blurb}</p>
 
