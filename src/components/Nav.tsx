@@ -12,9 +12,18 @@ export default function Nav() {
         <Link
           href="/#top"
           aria-label="Home"
-          className="group flex h-8 w-8 shrink-0 items-center justify-center"
+          className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 transition-colors hover:bg-white/10"
         >
-          <span className="pulse-dot h-3 w-3 rounded-full bg-gradient-to-br from-accent-light to-accent shadow-[0_0_10px_2px_rgba(220,150,90,0.55)] transition-transform group-hover:scale-125" />
+          <svg
+            viewBox="0 0 24 24"
+            className="h-4 w-4 text-accent-light transition-transform group-hover:scale-110"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinejoin="round"
+          >
+            <path d="M12 2 L20.66 7 L20.66 17 L12 22 L3.34 17 L3.34 7 Z" />
+          </svg>
         </Link>
 
         {links.map((l) => (
