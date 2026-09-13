@@ -13,14 +13,7 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-3xl px-5 pt-28 pb-16 text-center sm:px-8 sm:pt-36 sm:pb-24">
         <div className="fade-up flex flex-col items-center">
-          {profile.available && (
-            <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-medium text-accent-light">
-              <span className="pulse-dot h-2 w-2 rounded-full bg-accent" />
-              Available for work
-            </span>
-          )}
-
-          <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             {profile.name}
           </h1>
           <p className="mt-3 font-mono text-sm text-accent-light sm:text-base">
@@ -31,12 +24,21 @@ export default function Hero() {
             {profile.tagline}
           </p>
 
-          <a
-            href="#work"
-            className="mt-8 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-accent-light"
-          >
-            View my work
-          </a>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            {profile.available && (
+              <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-medium text-accent-light">
+                <span className="pulse-dot h-2 w-2 rounded-full bg-accent" />
+                Available for work
+              </span>
+            )}
+
+            <a
+              href="#work"
+              className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-[1.03] hover:bg-accent-light"
+            >
+              View my work
+            </a>
+          </div>
         </div>
       </div>
     </section>

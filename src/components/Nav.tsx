@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { profile } from "@/data/portfolio";
 
 const links = [
   { href: "/#work", label: "Work" },
@@ -26,13 +25,6 @@ export default function Nav() {
             <path d="M12 2 L20.66 7 L20.66 17 L12 22 L3.34 17 L3.34 7 Z" />
           </svg>
         </Link>
-
-        {profile.available && (
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/20 bg-accent/5 px-2.5 py-1.5 text-xs font-medium text-accent-light">
-            <span className="pulse-dot h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-            <span className="hidden sm:inline">Available for work</span>
-          </span>
-        )}
 
         {links.map((l) => (
           <Link
