@@ -648,7 +648,7 @@ export const projects: Project[] = [
   },
   {
     slug: "textured-hair-directory",
-    title: "Trusted City Guide for Textured Hair",
+    title: "Automated Scrape Pipeline — Live Local Business Directory",
     category: "Verified Local Directory · Automated Data Pipeline · MongoDB",
     status: "Private Beta",
     blurb:
