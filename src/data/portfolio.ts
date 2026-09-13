@@ -19,6 +19,7 @@ export const skillGroups = [
   {
     title: "LLMs & Agents",
     items: [
+      "Agentic AI",
       "Multi-agent orchestration",
       "Function calling / tool use",
       "RAG",
