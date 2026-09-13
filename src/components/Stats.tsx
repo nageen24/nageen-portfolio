@@ -14,7 +14,7 @@ export default function Stats() {
                 className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 font-mono text-xs text-zinc-400"
               >
                 {tool.icon ? (
-                  <tool.icon className="h-3.5 w-3.5 text-zinc-500" />
+                  <tool.icon className="h-3.5 w-3.5" color={tool.color} />
                 ) : (
                   <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-white/10 text-[8px] font-bold leading-none text-zinc-500">
                     {tool.abbr}

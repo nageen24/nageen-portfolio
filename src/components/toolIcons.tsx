@@ -31,36 +31,41 @@ import {
 // `tech` + `skillGroups`), scrolling in the ticker below the hero.
 // A few providers (OpenAI, Groq, ChromaDB, Slack) have no brand icon in
 // Simple Icons — they fall back to a plain monogram badge instead.
-export type Tool = { label: string; icon?: IconType; abbr?: string };
+//
+// `color` is each brand's official hex (from the simple-icons dataset).
+// A few brands ship pure/near-black marks (Next.js, Vercel, Bun, GitHub) —
+// those use the brand's own white variant instead, since true black would
+// be invisible on this site's dark chips.
+export type Tool = { label: string; icon?: IconType; color?: string; abbr?: string };
 
 export const tools: Tool[] = [
-  { label: "Claude", icon: SiClaude },
+  { label: "Claude", icon: SiClaude, color: "#D97757" },
   { label: "OpenAI (GPT)", abbr: "AI" },
   { label: "Groq", abbr: "Gq" },
-  { label: "LangChain", icon: SiLangchain },
-  { label: "Python", icon: SiPython },
-  { label: "TypeScript", icon: SiTypescript },
-  { label: "Node.js", icon: SiNodedotjs },
-  { label: "FastAPI", icon: SiFastapi },
-  { label: "Next.js", icon: SiNextdotjs },
-  { label: "React", icon: SiReact },
-  { label: "Electron", icon: SiElectron },
-  { label: "TanStack", icon: SiTanstack },
-  { label: "MongoDB", icon: SiMongodb },
-  { label: "SQLite", icon: SiSqlite },
+  { label: "LangChain", icon: SiLangchain, color: "#7FC8FF" },
+  { label: "Python", icon: SiPython, color: "#3776AB" },
+  { label: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+  { label: "Node.js", icon: SiNodedotjs, color: "#5FA04E" },
+  { label: "FastAPI", icon: SiFastapi, color: "#009688" },
+  { label: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
+  { label: "React", icon: SiReact, color: "#61DAFB" },
+  { label: "Electron", icon: SiElectron, color: "#47848F" },
+  { label: "TanStack", icon: SiTanstack, color: "#ECE8D1" },
+  { label: "MongoDB", icon: SiMongodb, color: "#47A248" },
+  { label: "SQLite", icon: SiSqlite, color: "#003B57" },
   { label: "ChromaDB", abbr: "Ch" },
-  { label: "Qdrant", icon: SiQdrant },
-  { label: "Airtable", icon: SiAirtable },
-  { label: "n8n", icon: SiN8N },
-  { label: "Make.com", icon: SiMake },
-  { label: "Zapier", icon: SiZapier },
-  { label: "Trello", icon: SiTrello },
-  { label: "Docker", icon: SiDocker },
-  { label: "Vercel", icon: SiVercel },
-  { label: "GitHub", icon: SiGithub },
-  { label: "Bun", icon: SiBun },
-  { label: "Google Drive", icon: SiGoogledrive },
-  { label: "Gmail", icon: SiGmail },
-  { label: "Stripe", icon: SiStripe },
+  { label: "Qdrant", icon: SiQdrant, color: "#DC244C" },
+  { label: "Airtable", icon: SiAirtable, color: "#18BFFF" },
+  { label: "n8n", icon: SiN8N, color: "#EA4B71" },
+  { label: "Make.com", icon: SiMake, color: "#6D00CC" },
+  { label: "Zapier", icon: SiZapier, color: "#FF4F00" },
+  { label: "Trello", icon: SiTrello, color: "#0052CC" },
+  { label: "Docker", icon: SiDocker, color: "#2496ED" },
+  { label: "Vercel", icon: SiVercel, color: "#FFFFFF" },
+  { label: "GitHub", icon: SiGithub, color: "#FFFFFF" },
+  { label: "Bun", icon: SiBun, color: "#FFFFFF" },
+  { label: "Google Drive", icon: SiGoogledrive, color: "#4285F4" },
+  { label: "Gmail", icon: SiGmail, color: "#EA4335" },
+  { label: "Stripe", icon: SiStripe, color: "#635BFF" },
   { label: "Slack", abbr: "Sl" },
 ];
