@@ -13,11 +13,7 @@ export default function Nav() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-ink/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <Link href="/#top" className="text-sm font-semibold tracking-tight">
-          Nageen Abid
-        </Link>
-
+      <nav className="mx-auto flex max-w-6xl items-center justify-end px-5 py-4 sm:px-8">
         {/* desktop links */}
         <ul className="hidden items-center gap-3 md:flex">
           {links.map((l) => (
