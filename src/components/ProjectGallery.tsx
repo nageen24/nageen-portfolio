@@ -60,7 +60,7 @@ export default function ProjectGallery({
       </div>
 
       <div className="mt-2 flex items-center justify-between gap-3">
-        <p className="truncate text-xs text-zinc-500">{current.caption}</p>
+        <p className="min-w-0 truncate text-xs text-zinc-500">{current.caption}</p>
         {images.length > 1 && (
           <div className="flex shrink-0 gap-1.5">
             {images.map((img, i) => (
