@@ -1,7 +1,7 @@
 export const profile = {
   name: "Nageen Abid",
-  role: "AI Engineer",
-  location: "Pakistan",
+  role: "Agentic AI & Workflow Automation Engineer",
+  location: "Global Remote (UTC+5)",
   email: "nageenabid0624@gmail.com",
   phone: "+92 312 6243067",
   whatsapp:
@@ -11,8 +11,8 @@ export const profile = {
   github: "https://github.com/nageen24",
   available: true,
   tagline:
-    "AI Engineer in Pakistan, building agentic AI systems, RAG pipelines, and LLM-powered backends with Python, n8n, Make & Zapier — shipping multi-agent automations and SaaS products that run live in production.",
-  bio: "AI Engineer with 2+ years of production experience shipping end-to-end AI products — from a fully automated property-management platform that runs every booking, invoice, and smart-lock access with zero manual steps, to self-hosted multi-agent workflows and grounded RAG chatbots.",
+    "Agentic AI & Workflow Automation Engineer, building agentic AI systems, RAG pipelines, and LLM-powered backends with Python, n8n, Make & Zapier — shipping multi-agent automations and SaaS products that run live in production.",
+  bio: "AI Engineer with 3+ years of production experience shipping end-to-end AI products — from a fully automated property-management platform that runs every booking, invoice, and smart-lock access with zero manual steps, to self-hosted multi-agent workflows and grounded RAG chatbots.",
 };
 
 export const skillGroups = [
@@ -27,9 +27,12 @@ export const skillGroups = [
       "Structured outputs",
       "Claude",
       "OpenAI (GPT)",
+      "OpenAI Realtime API",
       "Llama",
       "Groq",
       "Whisper",
+      "CrewAI",
+      "LlamaIndex",
     ],
   },
   {
@@ -37,6 +40,7 @@ export const skillGroups = [
     items: [
       "Embeddings",
       "ChromaDB",
+      "Qdrant",
       "Chunking & retrieval",
       "PDF/DOCX pipelines",
       "SQLite",
@@ -71,6 +75,7 @@ export type Project = {
   category: string;
   status: string;
   country?: string; // client/market country, shown as a small tag on the card + detail page
+  industry?: string; // client/market industry, shown as a small tag on the card + detail page
   blurb: string;
   myRole?: string; // what I personally built, shown on the detail page
   highlights: string[];
@@ -91,6 +96,7 @@ export const projects: Project[] = [
     category: "Property-Tech SaaS · Automation Backend",
     status: "Live in production",
     country: "Lithuania",
+    industry: "Vacation Rentals & Hospitality",
     blurb:
       "A full property-management SaaS — owner dashboard, cleaner app, and public site — where Airtable, Make.com, Beds24, Stripe, Seam, and OpenAI run every booking, cleaning, and invoice automatically.",
     myRole:
@@ -241,6 +247,7 @@ export const projects: Project[] = [
     category: "AI Agents · n8n Automation · Trello, Asana & Monday.com",
     status: "Self-Hosted on a VPS",
     country: "Malaysia",
+    industry: "Team Collaboration & Productivity",
     blurb:
       "Five AI Agents, orchestrated in n8n on a self-hosted VPS — reading meeting transcripts, inbound email, and Slack chat — that create, match, and manage tasks directly on Trello, Asana, or Monday.com boards.",
     myRole:
@@ -347,6 +354,7 @@ export const projects: Project[] = [
     category: "Embeddable AI Widget · RAG Backend · FastAPI",
     status: "In Production",
     country: "USA",
+    industry: "Customer Support",
     blurb:
       "An embeddable support-chat widget that answers strictly from a company's own documents. FastAPI, BM25 keyword retrieval (no embeddings, no vector DB), and Groq's GPT-OSS 20B behind a 4-way intent router. A strict, word-capped brand-voice persona is enforced twice — in the prompt, and again in post-processing.",
     myRole:
@@ -427,6 +435,7 @@ export const projects: Project[] = [
     category: "Desktop App Automation · Electron · Local-First AI",
     status: "Windows · macOS · Linux",
     country: "Malaysia",
+    industry: "Meeting Productivity",
     blurb:
       "A cross-platform desktop app that auto-detects a meeting and records it locally with zero manual action — on Windows, via the same mic-privacy signal Windows itself uses. Groq Whisper transcribes a 1-hour meeting in ~25s (with a fully offline fallback), and an LLM summarizes it and auto-files it into the right project. Finished notes push out to your automation stack by signed webhook.",
     myRole:
@@ -548,6 +557,7 @@ export const projects: Project[] = [
     category: "Agentic AI · Micro-RAG Search · FastAPI",
     status: "Live Demo · Deployed on Vercel",
     country: "USA",
+    industry: "Wealth Management",
     blurb:
       "An agentic AI pipeline — a drafter-and-reviewer LLM pair checking every answer — that discovers, enriches, and proof-gates family-office records from public filings, then serves them through an idempotent, replayable Micro-RAG search app.",
     myRole:
@@ -660,6 +670,7 @@ export const projects: Project[] = [
     category: "Verified Local Directory · Automated Data Pipeline · MongoDB",
     status: "Private Beta",
     country: "USA",
+    industry: "Beauty & Wellness",
     blurb:
       "A deterministic, zero-hallucination directory of verified textured-hair practitioners across four cities — an Apify scraping pipeline merges listings into MongoDB, then a rule-based classifier and a confidence-decay engine score how trustworthy each one still is.",
     myRole:
@@ -774,7 +785,7 @@ export const experience = [
   {
     company: "Xorsel",
     role: "AI Engineer",
-    period: "08/2024 – 03/2026",
+    period: "01/2024 – 03/2026",
     points: [
       "Built RAG systems end-to-end: ingestion, chunking, embeddings, ChromaDB retrieval.",
       "Delivered speech-to-text + summarization with Whisper ASR and Llama-3.3-70B.",

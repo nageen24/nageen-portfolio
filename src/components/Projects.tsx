@@ -43,14 +43,27 @@ function ProjectCard({ project }: { project: Project }) {
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
             {project.category}
           </p>
-          {project.country && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[11px] font-medium text-zinc-400">
-              <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="12" cy="9.5" r="2.3" />
-              </svg>
-              {project.country}
-            </span>
+          {(project.country || project.industry) && (
+            <div className="flex flex-wrap items-center gap-1.5">
+              {project.industry && (
+                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[11px] font-medium text-zinc-400">
+                  <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="7" width="18" height="13" rx="1.5" />
+                    <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" strokeLinecap="round" />
+                  </svg>
+                  {project.industry}
+                </span>
+              )}
+              {project.country && (
+                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[11px] font-medium text-zinc-400">
+                  <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="12" cy="9.5" r="2.3" />
+                  </svg>
+                  {project.country}
+                </span>
+              )}
+            </div>
           )}
         </div>
         <h3 className="mt-2 text-xl font-bold tracking-tight sm:text-2xl">
