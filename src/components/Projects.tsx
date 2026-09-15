@@ -7,7 +7,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="grid gap-6 rounded-2xl border border-white/10 bg-white/[0.02] p-5 sm:p-6 md:grid-cols-2 md:items-center md:gap-8 md:p-8">
       {/* media panel — always on the right, text always on the left */}
-      <div className="md:order-2">
+      <div className="min-w-0 md:order-2">
         {project.images?.length ? (
           <ProjectGallery images={project.images} status={project.status} />
         ) : (
@@ -38,7 +38,7 @@ function ProjectCard({ project }: { project: Project }) {
       </div>
 
       {/* text */}
-      <div className="md:order-1">
+      <div className="min-w-0 md:order-1">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
             {project.category}
